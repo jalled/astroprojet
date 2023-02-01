@@ -1,11 +1,18 @@
+import 'dart:convert';
+
+import 'package:astro2/astroProfileRegister/profileUser.dart';
+import 'package:astro2/horoscope/model/HoroscopeHiverModel.dart';
+import 'package:astro2/horoscope/model/HoscopeModel.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloC/glassphormismResources.dart';
+import 'package:http/http.dart' as http;
 
 class HomeHoroscope extends StatefulWidget {
   const HomeHoroscope({super.key});
@@ -16,61 +23,104 @@ class HomeHoroscope extends StatefulWidget {
 
 class _HomeHoroscopeState extends State<HomeHoroscope>
     with TickerProviderStateMixin {
+  static List<Contents> list_horoscope = [];
+  static List<Contents> list_horoscope_jour = [];
+  static List<ContentH> list_horoscope_hiver = [];
+
   final ScrollController _mycontroller = new ScrollController();
 
   @override
+  void initState() {
+    getHoroscopeDemain().then((value) {
+      setState(() {
+        list_horoscope = value;
+      });
+    });
+    getHoroscopeJour().then((value) {
+      setState(() {
+        list_horoscope_jour = value;
+      });
+    });
+    //  getHoroscopeHiver().then((value) {
+    //  setState(() {
+    //  list_horoscope_hiver = value;
+    //});
+    //});
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 68, 0, 107),
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                backgroundColor: const Color.fromARGB(255, 140, 73, 163),
-                leading: SvgPicture.asset(
-                  'assets/images/Vector.svg',
-                  width: 10,
-                  height: 15,
-                ),
-                actions: <Widget>[
-                  SvgPicture.asset(
-                    'assets/images/menuicon.svg',
-                    width: 30,
-                    height: 25,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                  ),
-                ],
-                elevation: 10.0,
-                // false par default
-                automaticallyImplyLeading: true,
-                expandedHeight: 50,
-                floating: true,
-                snap: true,
-              ),
-            ];
-          },
-          body: ListView(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  SingleChildScrollView(
-                    controller: _mycontroller,
-                    child: Column(
-                      children: <Widget>[
-                        BlocProfil(context),
-                        BlocShadowSigne(context),
-                        TabBarHoroscope(context),
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 68, 0, 107),
+      appBar: AppBar(
+          title: Text(
+            "Horoscope",
+            style: TextStyle(
+              fontFamily: 'Larken Bold',
+              fontSize: 14,
+              color: Colors.white.withOpacity(0.9),
+              fontWeight: FontWeight.w400,
+            ),
           ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: SvgPicture.asset(
+              'assets/images/Flesh.svg',
+              width: 10,
+              height: 20,
+              fit: BoxFit.scaleDown,
+            ),
+          ),
+          titleSpacing: 00.0,
+          centerTitle: true,
+          toolbarHeight: 60.2,
+          toolbarOpacity: 0.8,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(25),
+            ),
+          ),
+          actions: <Widget>[
+            SvgPicture.asset(
+              'assets/images/menuicon.svg',
+              width: 30,
+              height: 25,
+            ),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+            ),
+          ],
+          elevation: 15.00,
+          backgroundColor: const Color.fromARGB(255, 68, 0, 107)),
+      body: MediaQuery.removePadding(
+        removeTop: true,
+        context: context,
+        child: ListView(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  controller: _mycontroller,
+                  child: Column(
+                    children: <Widget>[
+                      BlocProfil(context),
+                      BlocShadowSigne(context),
+                      TabBarHoroscope(context),
+                    ],
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -81,7 +131,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
       height: 60.0,
       width: 350.0,
       child: Padding(
-        padding: const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
+        padding: const EdgeInsets.only(left: 0, right: 0, top: 20, bottom: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,26 +156,27 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: OutlinedButton(
-                onPressed: () {
-                  //Respond to button press
-                  print('Chcha');
-                },
-                child: Text(
-                  "Mon Profile",
-                  style: GoogleFonts.poppins(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 10,
+            OutlinedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilUser(),
                   ),
+                );
+              },
+              child: Text(
+                "Mon Profile",
+                style: GoogleFonts.poppins(
+                  color: Colors.white.withOpacity(0.9),
+                  fontSize: 10,
                 ),
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(31.0),
-                  ),
-                  side: const BorderSide(width: 2, color: Colors.white),
+              ),
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(31.0),
                 ),
+                side: const BorderSide(width: 2, color: Colors.white),
               ),
             ),
           ],
@@ -137,7 +188,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
   // BlocShadowSigne
   Widget BlocShadowSigne(context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 0),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 0),
       child: Container(
         decoration: BoxDecoration(
           //  border: Border.all(color: Colors.blue, width: 2.0),
@@ -192,8 +243,8 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
   }
 
   Widget TabBarHoroscope(context) {
-    TabController _tabController = TabController(length: 4, vsync: this);
     double opacityLevel = 1.0;
+    TabController _tabController = TabController(length: 4, vsync: this);
 
     return Container(
       child: Column(
@@ -237,38 +288,11 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
           Container(
             child: Container(
               padding: const EdgeInsets.only(right: 40),
-              height: 400,
-              //width: double.maxFinite,
+              height: 500,
               child: TabBarView(
                 controller: _tabController,
                 children: [
                   //----------------------------ITEM1------------------------------------
-                  // ListView.builder(
-                  //   itemCount: 10,
-                  //   //info.length,
-                  //   scrollDirection: Axis.horizontal,
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return GestureDetector(
-                  //       onTap: () {
-                  //         // BlocProvider.of<AppCubits>(context)
-                  //         //     .detailPage(info[index]);
-                  //       },
-                  //       child: Container(
-                  //         margin: const EdgeInsets.only(right: 15, top: 10),
-                  //         width: 200,
-                  //         height: 300,
-                  //         decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(20),
-                  //           color: Colors.white,
-                  //           image: const DecorationImage(
-                  //               image: NetworkImage(
-                  //                   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fchine.in%2Fguide%2Fastrologie-legende-des-signes_1036.html&psig=AOvVaw0Pc11XtkVuX-YR_kOvA02F&ust=1665583999949000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCND27Iuu2PoCFQAAAAAdAAAAABAc"),
-                  //               fit: BoxFit.cover),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
 
                   SingleChildScrollView(
                     child: Stack(
@@ -318,10 +342,10 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          "On Ne Peut Vaincre La Nature Qu'.en Lui Obéissant.",
+                                          list_horoscope[0].phrase.toString(),
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -333,7 +357,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                 ),
                                 const SizedBox(height: 50),
                                 Container(
-                                  // height: 300,
                                   width: 400,
                                   child: Flexible(
                                     child: Card(
@@ -371,12 +394,17 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope[0]
+                                                        .love
+                                                        .toString(),
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -390,7 +418,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                 // 2eme container
                                 const SizedBox(height: 40),
                                 SizedBox(
-                                  // height: 300,
                                   width: 400,
                                   child: Flexible(
                                     child: Card(
@@ -399,13 +426,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -436,12 +456,17 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope[0]
+                                                        .argent
+                                                        .toString(),
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -455,7 +480,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                 // 3eme Container
                                 const SizedBox(height: 40),
                                 SizedBox(
-                                  // height: 300,
                                   width: 400,
                                   child: Flexible(
                                     child: Card(
@@ -464,13 +488,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -502,12 +519,17 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope[0]
+                                                        .family
+                                                        .toString(),
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -582,6 +604,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 80),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 3,
                                                         minRating: 1,
                                                         direction:
@@ -645,6 +668,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -670,7 +694,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                     ],
                                                   ),
                                                 ),
-                                                // Card three
                                                 const SizedBox(height: 10),
                                                 Container(
                                                   width: MediaQuery.of(context)
@@ -708,6 +731,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       //SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -787,7 +811,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -804,21 +828,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                       ],
                     ),
                   ),
-                  //-------------------------ITEM2------------------------------------
-                  // ListView.builder(itemBuilder: (context, index) {
-                  //   return ListTile(
-                  //     leading: Icon(Icons.account_circle),
-                  //     title: Text("Line " + (index + 1).toString()),
-                  //     selectedTileColor: Colors.green[400],
-                  //     onTap: () {
-                  //       setState(() {
-                  //         print('ClikClaQ');
-                  //       });
-                  //     },
-                  //   );
-                  // }),
-                  // // item three
-                  // // Text("Bye"),
 
                   SingleChildScrollView(
                     child: Stack(
@@ -868,10 +877,12 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          "On Ne Peut Vaincre La Nature Qu'.en Lui Obéissant.",
+                                          list_horoscope_jour[0]
+                                              .phrase
+                                              .toString(),
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -922,12 +933,17 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope_jour[0]
+                                                        .love
+                                                        .toString(),
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -950,13 +966,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -987,12 +996,17 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope_jour[0]
+                                                        .argent
+                                                        .toString(),
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -1015,13 +1029,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -1053,12 +1060,19 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope_jour[0]
+                                                        .family
+                                                        .toString(),
+
+                                                    // 'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -1088,21 +1102,12 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
                                             SvgPicture.asset(
                                                 'assets/images/FamilleLogo.svg'),
                                             const SizedBox(height: 4),
-
                                             SvgPicture.asset(
                                                 'assets/images/Famille.svg'),
-
                                             const SizedBox(height: 12),
-
                                             Column(
                                               children: [
                                                 Container(
@@ -1141,6 +1146,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 80),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 3,
                                                         minRating: 1,
                                                         direction:
@@ -1204,6 +1210,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -1267,6 +1274,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       //SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -1325,10 +1333,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                             child: Container(
                                               height: 30,
                                               width: 340,
-                                              // padding: const EdgeInsets.symmetric(
-                                              //   vertical: 0,
-                                              //   horizontal: 0,
-                                              // ),
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
@@ -1347,10 +1351,14 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
+                                          list_horoscope_jour[0]
+                                              .advice
+                                              .toString(),
+
+                                          // "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -1421,7 +1429,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           "On Ne Peut Vaincre La Nature Qu'.en Lui Obéissant.",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -1443,12 +1451,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du jour',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -1490,6 +1492,9 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -1513,13 +1518,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -1556,6 +1554,9 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -1579,13 +1580,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -1652,21 +1646,12 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
                                             SvgPicture.asset(
                                                 'assets/images/FamilleLogo.svg'),
                                             const SizedBox(height: 4),
-
                                             SvgPicture.asset(
                                                 'assets/images/Famille.svg'),
-
                                             const SizedBox(height: 12),
-
                                             Column(
                                               children: [
                                                 Container(
@@ -1705,6 +1690,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 80),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 3,
                                                         minRating: 1,
                                                         direction:
@@ -1768,6 +1754,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -1831,6 +1818,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       //SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -1914,7 +1902,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -1984,7 +1972,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           "On Ne Peut Vaincre La Nature Qu'.en Lui Obéissant.",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -2005,12 +1993,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du jour',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -2032,12 +2014,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   border: Border.all(
                                                     color: Colors.white,
                                                   ),
-                                                  // color: Colors.yellow[100],
-                                                  // border: Border(
-                                                  //     left: BorderSide(
-                                                  //   color: Colors.green,
-                                                  //   width: 5,
-                                                  // )),
                                                   borderRadius:
                                                       const BorderRadius.all(
                                                           Radius.circular(20))),
@@ -2065,7 +2041,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                 // 2eme container
                                 const SizedBox(height: 40),
                                 SizedBox(
-                                  // height: 300,
                                   width: 400,
                                   child: Flexible(
                                     child: Card(
@@ -2074,13 +2049,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -2117,6 +2085,9 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                     ),
                                                     textAlign:
                                                         TextAlign.justify,
+                                                    indicatorIconColor:
+                                                        Colors.white,
+                                                    indicatorIconSize: 27,
                                                   ),
                                                 ),
                                               ),
@@ -2139,13 +2110,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
                                           children: [
-                                            // Text(
-                                            //   'Horoscope du Mois',
-                                            //   style: Theme.of(context)
-                                            //       .textTheme
-                                            //       .headline6,
-                                            // ),
-
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -2255,6 +2219,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       SizedBox(width: 80),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 3,
                                                         minRating: 1,
                                                         direction:
@@ -2318,6 +2283,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                       ),
                                                       const SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -2379,8 +2345,8 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                           ),
                                                         ),
                                                       ),
-                                                      //SizedBox(width: 25),
                                                       RatingBar.builder(
+                                                        itemSize: 20,
                                                         initialRating: 1,
                                                         minRating: 1,
                                                         direction:
@@ -2437,18 +2403,15 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                               // handle push to HomeScreen
                                             },
                                             child: Container(
-                                              height: 30,
-                                              width: 340,
-                                              // padding: const EdgeInsets.symmetric(
-                                              //   vertical: 0,
-                                              //   horizontal: 0,
-                                              // ),
+                                              height: 40,
+                                              width: 360,
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  'Notre conseil du Jour',
+                                                  "ee",
+                                                  //   "Nos conseils pour cette période d'hiver pour le ${list_horoscope_hiver[0].sign}",
                                                   style: GoogleFonts.poppins(
-                                                    fontSize: 20,
+                                                    fontSize: 12,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w400,
                                                   ),
@@ -2461,10 +2424,14 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
+                                          'fd',
+                                          // advice
+                                          //   list_horoscope_hiver[0]
+                                          //     .advice
+                                          //   .toString(),
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -2488,5 +2455,92 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
         ],
       ),
     );
+  }
+
+  Future<List<Contents>> getHoroscopeDemain() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    //var signe = sharedPreferences.getString('signe');
+    // print(signe);
+    String signe = 'Cancer';
+    String jour = "demain";
+    const _myUrl =
+        'https://api.aveniroscope.com/mobile/get-content-horoscope-by-day-and-signe';
+
+    return await http.post(Uri.parse(_myUrl),
+        headers: <String, String>{},
+        body: {"signe": signe, "jour": jour}).then((response) {
+      print(response.body.toString());
+
+      Horoscope horoscope = Horoscope.fromJson(json.decode(response.body));
+      List<Contents> list_horoscope = [];
+      for (int i = 0; i < horoscope.content!.length; i++) {
+        list_horoscope.add(horoscope.content![i]);
+        print('hahahahha');
+        print(horoscope.content![i].argent);
+      }
+      String credits = list_horoscope[0].phrase as String;
+      sharedPreferences.setString("credit", credits);
+
+      return list_horoscope;
+    });
+  }
+
+  Future<List<Contents>> getHoroscopeJour() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    //var signe = sharedPreferences.getString('signe');
+    // print(signe);
+    String signe = 'Cancer';
+    String jour = "jour";
+    const _myUrl =
+        'https://api.aveniroscope.com/mobile/get-content-horoscope-by-day-and-signe';
+
+    return await http.post(Uri.parse(_myUrl),
+        headers: <String, String>{},
+        body: {"signe": signe, "jour": jour}).then((response) {
+      print(response.body.toString());
+
+      Horoscope horoscope = Horoscope.fromJson(json.decode(response.body));
+      List<Contents> list_horoscope_jour = [];
+      for (int i = 0; i < horoscope.content!.length; i++) {
+        list_horoscope_jour.add(horoscope.content![i]);
+        print('hahahahha');
+        print(horoscope.content![i].argent);
+      }
+      String credits = list_horoscope_jour[0].phrase as String;
+      sharedPreferences.setString("credit", credits);
+
+      return list_horoscope_jour;
+    });
+  }
+
+  Future<List<ContentH>> getHoroscopeHiver() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    //var signe = sharedPreferences.getString('signe');
+    // print(signe);
+    String signe = 'Cancer';
+    const _myUrl =
+        'https://api.aveniroscope.com/mobile/get-content-horoscope-hiver';
+
+    return await http.post(Uri.parse(_myUrl), body: {
+      "signe": signe,
+    }).then((response) {
+      print(response.body.toString());
+
+      HoroscopeHiver horoscopeHiver =
+          HoroscopeHiver.fromJson(json.decode(response.body));
+      List<ContentH> list_horoscope_hiver = [];
+      for (int i = 0; i < horoscopeHiver.content.length; i++) {
+        list_horoscope_hiver.add(horoscopeHiver.content[i]);
+        print('BABABBAABBABABABA');
+        print(horoscopeHiver.content[i].id);
+      }
+      String credits = list_horoscope_jour[0].phrase as String;
+      sharedPreferences.setString("credit", credits);
+
+      return list_horoscope_hiver;
+    });
   }
 }

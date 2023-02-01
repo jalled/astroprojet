@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List pages = [
     HomeHoroscope(),
-    TestBest(),
+    Home(),
     ProfilVoyantsAndTchats(),
 
     //CardVoyants(),
@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
             unselectedItemColor: Colors.grey.withOpacity(0.5),
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            backgroundColor: Colors.yellowAccent,
+            backgroundColor: Colors.transparent,
             elevation: 0,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(

@@ -38,7 +38,8 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.only(
+                    top: 50, bottom: 0, right: 0, left: 0),
                 child: Text(
                   "Sexe",
                   style: GoogleFonts.poppins(
@@ -53,9 +54,10 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.all(0),
+                padding: const EdgeInsets.only(
+                    top: 30, bottom: 0, left: 0, right: 0),
                 child: Image.asset(
-                  "assets/images/step1.png",
+                  "assets/images/steps2.png",
                   scale: 0.8,
                   height: 4,
                   width: 300,
@@ -67,57 +69,69 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
               child: Padding(
                 padding: const EdgeInsets.all(35.0),
                 child: Image.asset(
-                  "assets/images/SexeGroup.png",
+                  "assets/images/sexelogo.png",
                   height: 160,
                   width: 160,
                 ),
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 6),
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, top: 40, bottom: 0),
               child: SizedBox(
-                width: 341,
+                width: 370,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
                     // Respond to button press
                   },
                   style: ButtonStyle(
-                    // foregroundColor:
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            side: BorderSide(color: Colors.transparent))),
                     backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 140, 73, 163)),
+                      Color(0xff8c49a3).withOpacity(0.6),
+                    ),
                   ),
                   child: Text(
                     'Homme',
-                    style: GoogleFonts.adventPro(
-                      color: const Color.fromARGB(255, 68, 0, 107),
+                    style: GoogleFonts.poppins(
+                      color: Colors.white.withOpacity(0.9),
                       fontWeight: FontWeight.w400,
+                      fontSize: 16,
                     ),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+              padding: const EdgeInsets.only(
+                  left: 10, right: 8, top: 7, bottom: 0),
               child: SizedBox(
-                width: 341,
+                width: 370,
                 height: 46,
                 child: ElevatedButton(
+                  
                   onPressed: () {
                     // Respond to button press
                   },
                   style: ButtonStyle(
-                    //foregroundColor:
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          
+                            borderRadius: BorderRadius.circular(8.0),
+                            side: BorderSide(color: Colors.transparent))),
                     backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 232, 232, 232)),
+                      Color(0xff8c49a3).withOpacity(0.6),
+                    ),
                   ),
                   child: Text(
                     'Femme',
-                    style: GoogleFonts.adventPro(
-                      color: const Color.fromARGB(255, 68, 0, 107),
+                    style: GoogleFonts.poppins(
+                      color: Colors.white.withOpacity(0.9),
                       fontWeight: FontWeight.w400,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -130,6 +144,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                 'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
                 style: GoogleFonts.poppins(
                   color: Colors.white,
+                  fontWeight: FontWeight.w300,
                   fontSize: 14,
                 ),
               ),
@@ -140,7 +155,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                 // Back
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 90, bottom: 0),
+                      left: 0, right: 0, top: 40, bottom: 0),
                   child: SizedBox(
                     width: 50,
                     height: 50,
@@ -158,10 +173,10 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
 
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 90, bottom: 0),
+                      left: 0, right: 20, top: 40, bottom: 0),
                   child: SizedBox(
-                    width: 260,
-                    height: 60,
+                    width: 320,
+                    height: 62,
                     child: ElevatedButton(
                       onPressed: () {
                         // Respond to button press
@@ -172,7 +187,6 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                         );
                       },
                       style: ButtonStyle(
-                        // foregroundColor:
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white),
                         shape:
@@ -182,18 +196,16 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                           ),
                         ),
                       ),
-                      child: Text(
-                        'Suivant',
-                        style: GoogleFonts.adventPro(
-                          color: const Color.fromARGB(255, 68, 0, 107),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      child: Text('Suivant',
+                          style: TextStyle(
+                            fontFamily: 'Larken Bold',
+                            color: const Color.fromARGB(255, 68, 0, 107),
+                          )),
                     ),
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

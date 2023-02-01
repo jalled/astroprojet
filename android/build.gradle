@@ -7,6 +7,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.google.gms:google-services:4.3.14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -28,4 +29,13 @@ subprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+under 
+    repositories { 
+    add this 
+    maven {
+        url 'https://google.bintray.com/exoplayer/'
+    }
+    maven { url 'https://plugins.gradle.org/m2/' }
 }

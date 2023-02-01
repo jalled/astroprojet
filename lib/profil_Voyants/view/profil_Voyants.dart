@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:astro2/profil_Voyants/model/VoyanteModel.dart';
+import 'package:astro2/profil_Voyants/model/VoyanteModel.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_horizontal_featured_list/flutter_horizontal_featured_list.dart';
@@ -6,8 +10,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
+import 'package:http/http.dart' as http;
 
-//import '../../astro_Home/view/home.dart';
+import '../model/VoyanteModel.dart';
+import '../model/VoyanteModel.dart';
+import 'details_Voyants.dart';
 
 class ProfilVoyantsAndTchats extends StatefulWidget {
   const ProfilVoyantsAndTchats({super.key});
@@ -19,10 +26,30 @@ class ProfilVoyantsAndTchats extends StatefulWidget {
 class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
     with TickerProviderStateMixin {
   int _index = 0;
+  List<VoyantObject> list_voyante = [];
+  bool _isLoading = true;
+  String? valueAvatar;
+  String? valueNom;
+  String? valueText;
+  String? valueconsultation;
+  String? valueprice;
 
   final ScrollController _mycontroller = new ScrollController();
   List<Color> colors = List.generate(20, (index) => rrandomColor());
   List<Color> colorsVoyant = List.generate(20, (index) => randomColorVoyant());
+
+  @override
+  void initState() {
+    super.initState();
+    showNormalWidget();
+    // attemptCom();
+
+    attemptCom().then((value) {
+      setState(() {
+        list_voyante = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +62,27 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
             return [
               SliverAppBar(
                 backgroundColor: const Color.fromARGB(255, 68, 0, 107),
-                leading: SvgPicture.asset(
-                  'assets/images/Flesh.svg',
-                  width: 10,
-                  height: 40,
+                leading: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/images/Flesh.svg',
+                    width: 10,
+                    height: 20,
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
 
-                title: Align(
+                title: const Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    "Tchat & Voyance",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                  child: Text("Tchat & Voyance",
+                      style: TextStyle(
+                        fontFamily: 'Larken Bold',
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      )),
                 ),
                 actions: <Widget>[
                   SvgPicture.asset(
@@ -99,134 +131,142 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
     return Center(
       child: Column(
         children: [
-          Text(
+          const Text(
             'Profils des voyants',
-            style: GoogleFonts.poppins(
+            style: TextStyle(
+              fontFamily: 'Larken Light',
               fontSize: 20,
               fontWeight: FontWeight.w400,
               color: Colors.white,
             ),
           ),
           HorizontalFeaturedList(
+            itemBorderRadius: const BorderRadius.all(Radius.circular(12)),
+
             itemHeight: 357,
             itemWidth: 350,
             itemColorBuilder: (context, index) => colorsVoyant[index],
-            itemCount: 10,
+            itemCount: list_voyante.length,
+
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0, bottom: 0, right: 0, left: 5),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Linda',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        SvgPicture.asset('assets/images/state.svg'),
-                        SizedBox(
-                          width: 160,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, bottom: 0, right: 0, left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              SvgPicture.asset('assets/images/Achievement.svg'),
-                              SvgPicture.asset('assets/images/Achievement.svg'),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 3),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Tarologue - Voyant',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(width: 50),
                       Column(
                         children: [
-                          RatingBar.builder(
-                            updateOnDrag: true,
-                            ignoreGestures: true,
-                            initialRating: 1,
-                            minRating: 1,
-                            itemSize: 15,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            unratedColor: Colors.yellow,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            itemBuilder: (context, _) => const Icon(
-                              Icons.star,
-                              color: Colors.white,
-                            ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            'Consultations',
-                            style: GoogleFonts.poppins(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
+                          Padding(
+                            padding: const EdgeInsets.only(right: 105),
+                            child: Row(
+                              children: [
+                                Text(
+                                  list_voyante[index].nom.toString(),
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                SvgPicture.asset('assets/images/state.svg'),
+                              ],
                             ),
                           ),
-                          // const SizedBox(height: 3),
-                          Text(
-                            '616',
-                            style: GoogleFonts.poppins(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: SizedBox(
+                              height: 40,
+                              width: 200,
+                              child: Text(
+                                list_voyante[index].competenceVoyant.toString(),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 0, bottom: 0, right: 0, left: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            RatingBar.builder(
+                              updateOnDrag: true,
+                              ignoreGestures: true,
+                              initialRating: 1,
+                              minRating: 1,
+                              itemSize: 15,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              unratedColor: Colors.yellow,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.white,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Consultations',
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              list_voyante[index].consultation.toString(),
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
+                  const SizedBox(height: 3),
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 0, bottom: 10, right: 0, left: 0),
+                        top: 20, bottom: 0, right: 0, left: 0),
                     child: Row(
                       children: [
-                        SizedBox(
-                          width: 132.7,
-                          height: 132,
-                          child: Image.asset('assets/images/VIVI.png'),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: SizedBox(
+                            width: 132.7,
+                            height: 132,
+                            child: Image.network(
+                                'https://api.aveniroscope.com/${list_voyante[index].avatarPath.toString()}'),
+                          ),
                         ),
                         const SizedBox(
                           width: 50,
                         ),
-                        Container(
+                        SizedBox(
                           width: 126,
                           height: 109,
-                          child: Text(
-                            "Bonjour, je suis Louise ! Medium pure, j'ai pour mission de vie de dévoiler votre avenir sentimentale, professionnel ou financier À tout voir plus",
-                            style: GoogleFonts.poppins(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              list_voyante[index].description.toString(),
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -234,10 +274,9 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                     ),
                   ),
                   // -------------------------button here -------------------
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Center(
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50, bottom: 0),
                     child: Container(
                       width: 267,
                       height: 45,
@@ -258,14 +297,15 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                             padding: const EdgeInsets.only(top: 5),
                             child: RichText(
                               text: TextSpan(
-                                text: '14€ les 10 mins \n',
+                                text: '15 Minutes gratuites puis \n',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 10,
+                                  fontSize: 9,
                                   fontWeight: FontWeight.w700,
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: '+ 3.70€ la minute supp.',
+                                    text:
+                                        '  ${list_voyante[index].price.toString()}€/minute',
                                     style: GoogleFonts.poppins(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w300,
@@ -304,7 +344,34 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                                   ),
                                 ),
                                 onPressed: () {
-                                  print('Pressed');
+                                  setState(() {
+                                    valueNom =
+                                        list_voyante[index].nom.toString();
+                                    valueAvatar = list_voyante[index]
+                                        .avatarPath
+                                        .toString();
+                                    valueText = list_voyante[index]
+                                        .description
+                                        .toString();
+                                    valueconsultation = list_voyante[index]
+                                        .consultation
+                                        .toString();
+                                    valueprice =
+                                        list_voyante[index].price.toString();
+                                  });
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsVoyants(
+                                              valueAvatar: valueAvatar ?? '',
+                                              valueNom: valueNom ?? '',
+                                              valueText: valueText ?? '',
+                                              valueconsultation:
+                                                  valueconsultation ?? '',
+                                              valueprice: valueprice ?? '',
+                                            )),
+                                  );
                                 },
                               ),
                             ),
@@ -316,7 +383,9 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                 ],
               );
             },
-            onPressedItem: () {},
+            onPressedItem: () {
+              print('aaaaaaa');
+            },
             onPressedSeeAll: () {}, seeAllText: '', titleText: '',
             // titleText: 'Top Voyants',
             // seeAllText: '',
@@ -329,34 +398,32 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
 //---------------------Voyant Super Note --------------------------------
   Widget VoyantSNote(context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, bottom: 0, right: 0, left: 0),
+      padding: const EdgeInsets.only(top: 40, bottom: 0, right: 0, left: 0),
       child: Column(
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 0, bottom: 0, right: 40, left: 0),
-            child: Text(
-              'Les Voyants les mieux notes ',
-              style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                color: Colors.white,
-              ),
-            ),
+          const Padding(
+            padding: EdgeInsets.only(top: 0, bottom: 0, right: 40, left: 0),
+            child: Text('Les Voyants les mieux notes ',
+                style: TextStyle(
+                  fontFamily: 'Larken Light',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                )),
           ),
           HorizontalFeaturedList(
-            itemHeight: 250,
+            itemBorderRadius: const BorderRadius.all(Radius.circular(12)),
+            itemHeight: 260,
             itemWidth: 163,
             itemColorBuilder: (context, index) => colors[index],
-            // itemCount: colors.length,
-            itemCount: 10,
+            itemCount: list_voyante.length,
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: <Widget>[
                   Row(
                     children: [
                       Text(
-                        'Linda',
+                        list_voyante[index].nom.toString(),
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -365,8 +432,8 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                       ),
                       const SizedBox(width: 5),
                       SvgPicture.asset('assets/images/state.svg'),
-                      const SizedBox(width: 55),
-                      SvgPicture.asset('assets/images/like.svg'),
+                      //  const SizedBox(width: 55),
+                      // SvgPicture.asset('assets/images/like.svg'),
                     ],
                   ),
                   SizedBox(height: 2),
@@ -382,8 +449,8 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                     ),
                   ),
                   SizedBox(height: 5),
-                  Image.asset(
-                    'assets/images/VIVI.png',
+                  Image.network(
+                    'https://api.aveniroscope.com/${list_voyante[index].avatarPath.toString()}',
                     width: 150,
                     height: 120,
                   ),
@@ -426,13 +493,35 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                         ),
                       ),
                       onPressed: () {
+                        print("card two ");
+                        setState(() {
+                          valueNom = list_voyante[index].nom.toString();
+                          valueAvatar =
+                              list_voyante[index].avatarPath.toString();
+                          valueText =
+                              list_voyante[index].description.toString();
+                          valueconsultation =
+                              list_voyante[index].consultation.toString();
+                          valueprice = list_voyante[index].price.toString();
+                        });
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailsVoyants(
+                                    valueAvatar: valueAvatar ?? '',
+                                    valueNom: valueNom ?? '',
+                                    valueText: valueText ?? '',
+                                    valueconsultation: valueconsultation ?? '',
+                                  )),
+                        );
                         // Respond to button press
                       },
                       icon: Icon(Icons.chat, size: 18, color: Colors.white),
                       label: Text(
-                        "TCHATEZ",
+                        "Consulter",
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
@@ -455,17 +544,19 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
   Widget VoyantSNote2(context) {
     return Container(
       child: HorizontalFeaturedList(
-        itemHeight: 250,
+        itemBorderRadius: const BorderRadius.all(Radius.circular(12)),
+
+        itemHeight: 260,
         itemWidth: 163,
         itemColorBuilder: (context, index) => colors[index],
-        itemCount: 10,
+        itemCount: list_voyante.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
             children: <Widget>[
               Row(
                 children: [
                   Text(
-                    'Linda',
+                    list_voyante[index].nom.toString(),
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -474,8 +565,8 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                   ),
                   const SizedBox(width: 5),
                   SvgPicture.asset('assets/images/state.svg'),
-                  const SizedBox(width: 55),
-                  SvgPicture.asset('assets/images/like.svg'),
+                  //   const SizedBox(width: 55),
+                  //   SvgPicture.asset('assets/images/like.svg'),
                 ],
               ),
               SizedBox(height: 2),
@@ -491,8 +582,8 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                 ),
               ),
               SizedBox(height: 5),
-              Image.asset(
-                'assets/images/VIVI.png',
+              Image.network(
+                'https://api.aveniroscope.com/${list_voyante[index].avatarPath.toString()}',
                 width: 150,
                 height: 120,
               ),
@@ -534,13 +625,32 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                     ),
                   ),
                   onPressed: () {
-                    // Respond to button press
+                    setState(() {
+                      valueNom = list_voyante[index].nom.toString();
+                      valueAvatar = list_voyante[index].avatarPath.toString();
+                      valueText = list_voyante[index].description.toString();
+                      valueconsultation =
+                          list_voyante[index].consultation.toString();
+                      valueprice = list_voyante[index].price.toString();
+                    });
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailsVoyants(
+                                valueAvatar: valueAvatar ?? '',
+                                valueNom: valueNom ?? '',
+                                valueText: valueText ?? '',
+                                valueconsultation: valueconsultation ?? '',
+                                valueprice: valueprice ?? '',
+                              )),
+                    );
                   },
                   icon: Icon(Icons.chat, size: 18, color: Colors.white),
                   label: Text(
-                    "TCHATEZ",
+                    "Consulter",
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
@@ -550,7 +660,9 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
             ],
           );
         },
-        onPressedItem: () {},
+        onPressedItem: () {
+          print('iteam pressed');
+        },
         onPressedSeeAll: () {}, seeAllText: '', titleText: '',
         // titleText: 'Top Voyants',
         // seeAllText: '',
@@ -584,7 +696,6 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                       Container(
                         width: 341,
                         height: 100,
-                        // width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -593,11 +704,11 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
                         ),
-
                         child: Center(
                           child: Text(
                             'Comment ça marche ?',
-                            style: GoogleFonts.poppins(
+                            style: TextStyle(
+                              fontFamily: 'Larken Light',
                               fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -615,6 +726,30 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
         ],
       ),
     );
+  }
+
+  Future<List<VoyantObject>> attemptCom() async {
+    const _myUrl = 'https://api.aveniroscope.com/mobile/get-voyant-by-note';
+
+    return await http.post(Uri.parse(_myUrl)).then((response) {
+      Voyants voyants = Voyants.fromJson(json.decode(response.body));
+      print(voyants.voyant[0].id);
+      List<VoyantObject> list_voyante = [];
+
+      for (int i = 0; i < voyants.voyant.length; i++) {
+        list_voyante.add(voyants.voyant[i]);
+        print(list_voyante[i].nom);
+      }
+      return list_voyante;
+    });
+  }
+
+  showNormalWidget() {
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 }
 
