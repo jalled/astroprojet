@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:astro2/astroProfileRegister/registerStepTwo.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RegisterStepOne extends StatefulWidget {
   const RegisterStepOne({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class _RegisterStepOneState extends State<RegisterStepOne>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
-  TextEditingController _prenomfield = TextEditingController();
 
   @override
   void initState() {
@@ -30,6 +29,8 @@ class _RegisterStepOneState extends State<RegisterStepOne>
 
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -39,11 +40,15 @@ class _RegisterStepOneState extends State<RegisterStepOne>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 50, bottom: 0, right: 0, left: 0),
-                child: Text(
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.05,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
+                child: const Text(
                   "Votre prénom",
                   style: TextStyle(
+                    fontFamily: 'Larken Light',
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
                     fontSize: 25,
@@ -55,8 +60,11 @@ class _RegisterStepOneState extends State<RegisterStepOne>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 30, bottom: 0, right: 0, left: 0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/step1.png",
                   scale: 0.8,
@@ -68,8 +76,11 @@ class _RegisterStepOneState extends State<RegisterStepOne>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 30, bottom: 0, right: 0, left: 0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/Vector.png",
                   height: 160,
@@ -78,34 +89,43 @@ class _RegisterStepOneState extends State<RegisterStepOne>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 330, top: 90, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.05,
+                  right: deviceSize.width * 0.70,
+                  top: deviceSize.height * 0.1,
+                  bottom: 0),
               child: Text(
-                'Prénom',
+                "Prénom",
                 style: GoogleFonts.poppins(
-                  color: Color.fromARGB(255, 219, 212, 212),
+                  color: Colors.white,
                   fontWeight: FontWeight.w300,
                   fontSize: 14,
                 ),
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(top: 4, bottom: 0, left: 16, right: 16),
+              padding: EdgeInsets.only(
+                  left: deviceSize.width * 0.05,
+                  right: deviceSize.width * 0.05,
+                  top: 10,
+                  bottom: 0),
               child: TextFormField(
-                controller: _prenomfield,
                 style: const TextStyle(
-                    color: Color.fromARGB(255, 128, 128, 128),
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14),
+                  color: Color.fromARGB(255, 128, 128, 128),
+                ),
                 onTap: () {
                   setState(() {
                     isVisible = !isVisible;
                   });
                 },
                 decoration: InputDecoration(
+                  hintText: "Votre prénom",
+                  hintStyle: const TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.w300),
+                  constraints: BoxConstraints(
+                      maxHeight: 54, maxWidth: deviceSize.width * 0.75),
                   fillColor: Colors.white,
                   filled: true,
-                  hintText: "Votre prénom",
 
                   isDense: true,
 
@@ -116,17 +136,20 @@ class _RegisterStepOneState extends State<RegisterStepOne>
                   ),
 
                   contentPadding: EdgeInsets.only(
-                    left: 15,
-                    bottom: 15,
-                    top: 13,
+                    left: deviceSize.height * 0.05,
+                    bottom: deviceSize.height * 0.05,
+                    top: deviceSize.height * 0.01,
                     right: 00,
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 30, right: 30, top: 100, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.03,
+                  right: deviceSize.height * 0.03,
+                  top: deviceSize.height * 0.14,
+                  bottom: 0),
               child: Text(
                 'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
                 style: GoogleFonts.poppins(
@@ -141,11 +164,14 @@ class _RegisterStepOneState extends State<RegisterStepOne>
               children: [
                 // Back
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 40, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: deviceSize.width * 0.07,
+                      right: 0,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 60,
+                    height: 60,
                     child: GestureDetector(
                       child: SvgPicture.asset(
                         'assets/images/BACKOUT.svg',
@@ -159,10 +185,13 @@ class _RegisterStepOneState extends State<RegisterStepOne>
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 20, top: 40, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: 0,
+                      right: deviceSize.width * 0.087,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 320,
+                    width: deviceSize.width * 0.62,
                     height: 62,
                     child: ElevatedButton(
                       onPressed: () {
@@ -183,7 +212,7 @@ class _RegisterStepOneState extends State<RegisterStepOne>
                           ),
                         ),
                       ),
-                      child: Text('Suivant',
+                      child: const Text('Suivant',
                           style: TextStyle(
                             fontFamily: 'Larken Bold',
                             color: const Color.fromARGB(255, 68, 0, 107),

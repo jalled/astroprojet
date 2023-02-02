@@ -1,20 +1,11 @@
 import 'package:astro2/astroProfileRegister/RegisterStepFive.dart';
-import 'package:astro2/astroProfileRegister/registerStepFour.dart';
-import 'package:astro2/astroProfileRegister/registerStepOne.dart';
-import 'package:astro2/astroProfileRegister/registerStepThree.dart';
-import 'package:astro2/astroProfileRegister/registerStepTwo.dart';
 import 'package:astro2/astro_Home/view/home.dart';
 import 'package:astro2/horoscope/bloC/modelView/horoscopeController.dart';
-import 'package:astro2/horoscope/view/voyanceParTel.dart';
-import 'package:astro2/profil_Voyants/view/details_Voyants.dart';
-import 'package:astro2/profil_Voyants/view/profil_Voyants.dart';
-import 'package:astro2/profil_Voyants/view/testdate.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
-import 'astroProfileRegister/test.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -46,36 +37,37 @@ class MyApp extends StatelessWidget {
                 statusBarColor: Colors.white,
               ),
               child: MaterialApp(
-                title: 'Omrane Jalled',
-                debugShowCheckedModeBanner: false,
-                builder: (context, child) {
-                  ScreenUtil.init(context);
+                  title: 'Omrane Jalled',
+                  debugShowCheckedModeBanner: false,
+                  builder: (context, child) {
+                    ScreenUtil.init(context);
 
-                  return MediaQuery(
-                      data:
-                          MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                      child: AnnotatedRegion<SystemUiOverlayStyle>(
-                          value: SystemUiOverlayStyle(
-                            systemNavigationBarColor: Colors.white,
-                            systemNavigationBarIconBrightness: Theme.of(context)
-                                        .backgroundColor
-                                        .computeLuminance() >
-                                    0.5
-                                ? Brightness.dark
-                                : Brightness.light,
-                            systemNavigationBarDividerColor: Colors.white,
-                            statusBarColor: Colors.white,
-                          ),
-                          child: child!));
-                },
-                theme: ThemeData(
-                  scaffoldBackgroundColor: Color.fromARGB(255, 68, 0, 107),
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  primarySwatch: Colors.blue,
-                ),
-                home: RegisterStepFour(),
-                //Home(),
-              ),
+                    return MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(textScaleFactor: 1.0),
+                        child: AnnotatedRegion<SystemUiOverlayStyle>(
+                            value: SystemUiOverlayStyle(
+                              systemNavigationBarColor: Colors.white,
+                              systemNavigationBarIconBrightness:
+                                  Theme.of(context)
+                                              .backgroundColor
+                                              .computeLuminance() >
+                                          0.5
+                                      ? Brightness.dark
+                                      : Brightness.light,
+                              systemNavigationBarDividerColor: Colors.white,
+                              statusBarColor: Colors.white,
+                            ),
+                            child: child!));
+                  },
+                  theme: ThemeData(
+                    scaffoldBackgroundColor: Color.fromARGB(255, 68, 0, 107),
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                    primarySwatch: Colors.blue,
+                  ),
+                  home: RegisterStepFive()
+                  //Home(),
+                  ),
             );
           }),
     );

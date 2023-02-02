@@ -1,5 +1,6 @@
 import 'package:astro2/astroProfileRegister/registerStepFour.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStepFive extends StatefulWidget {
@@ -28,6 +29,8 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
 
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Container(
@@ -35,17 +38,18 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Visibility(
-                visible: isVisible,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 0, bottom: 0),
-                  child: Image.asset(
-                    "assets/images/loading.gif",
-                    width: 400,
-                    height: 400,
+              Stack(
+                children: <Widget>[
+                  new Image.asset('assets/images/loading.gif',
+                      height: 360, width: 360),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, bottom: 10),
+                    child: new Image.asset('assets/images/Frame.png',
+                        color: Color.fromARGB(255, 68, 0, 107),
+                        width: 300,
+                        height: 200),
                   ),
-                ),
+                ],
               ),
               Visibility(
                 visible: isVisible,
@@ -54,8 +58,8 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                       left: 30, right: 30, top: 0, bottom: 0),
                   child: Image.asset(
                     "assets/images/Group44.png",
-                    height: 220,
-                    width: 220,
+                    height: 240,
+                    width: 240,
                   ),
                 ),
               ),
@@ -63,10 +67,13 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 0, right: 0, top: 0, bottom: 0),
+                    padding: EdgeInsets.only(
+                        left: 0,
+                        right: 0,
+                        top: deviceSize.height * 0.06,
+                        bottom: 0),
                     child: SizedBox(
-                      width: 340,
+                      width: deviceSize.width * 0.7,
                       height: 62,
                       child: ElevatedButton(
                         onPressed: () {
@@ -88,7 +95,7 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                             ),
                           ),
                         ),
-                        child: Text('Suivantd',
+                        child: const Text('Suivant',
                             style: TextStyle(
                               fontFamily: 'Larken Bold',
                               color: const Color.fromARGB(255, 68, 0, 107),

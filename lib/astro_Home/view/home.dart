@@ -280,7 +280,7 @@ class _TestBestState extends State<Home> with TickerProviderStateMixin {
   Widget CercleDeSigne(context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 30, bottom: 0),
-      child: Container(
+      child: SizedBox(
         width: 339,
         height: 360,
         child: Stack(

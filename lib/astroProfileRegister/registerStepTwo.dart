@@ -29,6 +29,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
 
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -38,11 +39,15 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 50, bottom: 0, right: 0, left: 0),
-                child: Text(
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.05,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
+                child: const Text(
                   "Sexe",
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
+                    fontFamily: 'Larken Light',
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
                     fontSize: 25,
@@ -54,8 +59,11 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 30, bottom: 0, left: 0, right: 0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    left: 0,
+                    right: 0),
                 child: Image.asset(
                   "assets/images/steps2.png",
                   scale: 0.8,
@@ -76,10 +84,13 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, top: 40, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.05,
+                  right: deviceSize.height * 0.05,
+                  top: 40,
+                  bottom: 0),
               child: SizedBox(
-                width: 370,
+                width: deviceSize.width * 0.75,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
@@ -106,20 +117,21 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 10, right: 8, top: 7, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.05,
+                  right: deviceSize.height * 0.05,
+                  top: 7,
+                  bottom: 0),
               child: SizedBox(
-                width: 370,
+                width: deviceSize.width * 0.75,
                 height: 46,
                 child: ElevatedButton(
-                  
                   onPressed: () {
                     // Respond to button press
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(color: Colors.transparent))),
                     backgroundColor: MaterialStateProperty.all(
@@ -138,8 +150,11 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 30, right: 30, top: 50, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.03,
+                  right: deviceSize.height * 0.03,
+                  top: deviceSize.height * 0.14,
+                  bottom: 0),
               child: Text(
                 'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
                 style: GoogleFonts.poppins(
@@ -154,11 +169,14 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
               children: [
                 // Back
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 40, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: deviceSize.width * 0.07,
+                      right: 0,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 60,
+                    height: 60,
                     child: GestureDetector(
                       child: SvgPicture.asset(
                         'assets/images/BACKOUT.svg',
@@ -172,10 +190,13 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 20, top: 40, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: 0,
+                      right: deviceSize.width * 0.087,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 320,
+                    width: deviceSize.width * 0.62,
                     height: 62,
                     child: ElevatedButton(
                       onPressed: () {

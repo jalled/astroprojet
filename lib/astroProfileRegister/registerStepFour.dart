@@ -14,6 +14,7 @@ class RegisterStepFour extends StatefulWidget {
 
 class _RegisterStepFourState extends State<RegisterStepFour>
     with SingleTickerProviderStateMixin {
+  bool isChecked = false;
   bool isVisible = true;
   late AnimationController _controller;
 
@@ -31,7 +32,8 @@ class _RegisterStepFourState extends State<RegisterStepFour>
 
   @override
   Widget build(BuildContext context) {
-    bool _isChecked = false;
+    final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -68,18 +70,19 @@ class _RegisterStepFourState extends State<RegisterStepFour>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.all(35.0),
+                padding: const EdgeInsets.all(37.0),
                 child: Image.asset(
                   "assets/images/heurenaissance.png",
-                  height: 160,
-                  width: 160,
+                  height: 150,
+                  width: 150,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(5),
               child: SizedBox(
-                  height: 160,
+                  height: 140,
+                  width: 200,
                   child: CupertinoTheme(
                     data: CupertinoThemeData(
                       textTheme: CupertinoTextThemeData(
@@ -88,51 +91,55 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     ),
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.time,
+                      use24hFormat: true,
                       onDateTimeChanged: (_) {},
                       initialDateTime: DateTime.now(),
                     ),
-                  )
-
-/*
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.time,
-                  onDateTimeChanged: (value) {},
-                  initialDateTime: DateTime.now(),
-                ),
-*/
-
-                  ),
+                  )),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 12),
+              padding: EdgeInsets.only(top: 10, left: deviceSize.width * 0.03),
               child: Row(
                 children: [
                   Checkbox(
                     checkColor: Colors.white,
-                    activeColor: Colors.green,
-                    value: _isChecked,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.disabled)) {
+                        return Color(0xff8c49a3).withOpacity(0.6);
+                      }
+                      return Color(0xff8c49a3).withOpacity(0.6);
+                    }),
+                    value: isChecked,
                     onChanged: (bool? value) {
                       setState(() {
-                        _isChecked = true;
+                        isChecked = value!;
                       });
                     },
                   ),
                   Text(
                     "Heure Inconnue",
-                    style: TextStyle(color: Colors.white),
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w300),
                   )
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 30, right: 30, top: 40, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.03,
+                  right: deviceSize.height * 0.03,
+                  top: deviceSize.height * 0.02,
+                  bottom: 0),
               child: Text(
-                'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
+                'Pour déterminer votre ascendant astrologique,\n l’heure de votre naissance est cruciale.',
+                textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300),
               ),
             ),
             Row(
@@ -140,11 +147,14 @@ class _RegisterStepFourState extends State<RegisterStepFour>
               children: [
                 // Back
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 70, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: deviceSize.width * 0.07,
+                      right: 0,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 60,
+                    height: 60,
                     child: GestureDetector(
                       child: SvgPicture.asset(
                         'assets/images/BACKOUT.svg',
@@ -158,10 +168,13 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 70, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: 0,
+                      right: deviceSize.width * 0.087,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 260,
+                    width: deviceSize.width * 0.62,
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () {
@@ -185,6 +198,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                       ),
                       child: Text('Suivant',
                           style: TextStyle(
+                            fontFamily: 'Larken Bold',
                             color: const Color.fromARGB(255, 68, 0, 107),
                             fontWeight: FontWeight.w400,
                           )),

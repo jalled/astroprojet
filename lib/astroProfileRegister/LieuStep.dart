@@ -30,6 +30,8 @@ class _LieuStepState extends State<LieuStep>
 
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -39,11 +41,15 @@ class _LieuStepState extends State<LieuStep>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 50, bottom: 0, right: 0, left: 0),
-                child: Text(
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.05,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
+                child: const Text(
                   "Lieu de naissance",
                   style: TextStyle(
+                    fontFamily: 'Larken Light',
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
                     fontSize: 25,
@@ -68,49 +74,74 @@ class _LieuStepState extends State<LieuStep>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 30, bottom: 0, right: 0, left: 0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.1, bottom: 0, right: 0, left: 0),
                 child: Image.asset(
-                  "assets/images/lieunais.png",
-                  height: 160,
-                  width: 160,
+                  "assets/images/lieustep.png",
+                  height: 107,
+                  width: 292,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 90, bottom: 0, left: 16, right: 16),
-              child: TextFormField(
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 128, 128, 128),
+              padding: EdgeInsets.only(
+                  left: deviceSize.width * 0.04,
+                  right: deviceSize.width * 0.5,
+                  top: deviceSize.height * 0.07,
+                  bottom: 0),
+              child: Text(
+                "Séléctionner votre lieu de naissance",
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w200,
+                  fontSize: 12,
                 ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.03,
+                  right: deviceSize.width * 0.03,
+                  top: 10,
+                  bottom: 0),
+              child: TextFormField(
                 onTap: () {
                   setState(() {
                     isVisible = !isVisible;
                   });
                 },
-                initialValue: 'Lieu de naissance',
                 decoration: InputDecoration(
-                  fillColor: Colors.white.withOpacity(0.15),
+                  hintText: "Sélectionner lieu",
+
+                  hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 237, 223, 223),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w200),
+                  constraints: BoxConstraints(
+                      maxHeight: 54, maxWidth: deviceSize.width * 1),
+                  fillColor: Color(0xff875ba0),
+
                   filled: true,
+
                   isDense: true,
+
+                  // errorText: 'Error message',
+
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  contentPadding: EdgeInsets.only(
-                    left: 15,
-                    bottom: 15,
-                    top: 13,
-                    right: 00,
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 30, right: 30, top: 100, bottom: 0),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.03,
+                  right: deviceSize.height * 0.03,
+                  top: deviceSize.height * 0.14,
+                  bottom: 0),
               child: Text(
-                'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
+                "Pour déterminer votre ascendant astrologique,\n  l'heure de votre naissance est cruciale",
+                textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
@@ -123,11 +154,14 @@ class _LieuStepState extends State<LieuStep>
               children: [
                 // Back
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 90, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: deviceSize.width * 0.07,
+                      right: 0,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 60,
+                    height: 60,
                     child: GestureDetector(
                       child: SvgPicture.asset(
                         'assets/images/BACKOUT.svg',
@@ -141,10 +175,13 @@ class _LieuStepState extends State<LieuStep>
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 0, right: 0, top: 90, bottom: 0),
+                  padding: EdgeInsets.only(
+                      left: deviceSize.width * 0.087,
+                      right: deviceSize.width * 0.087,
+                      top: deviceSize.height * 0.06,
+                      bottom: 0),
                   child: SizedBox(
-                    width: 265,
+                    width: deviceSize.width * 0.62,
                     height: 62,
                     child: ElevatedButton(
                       onPressed: () {
@@ -165,7 +202,7 @@ class _LieuStepState extends State<LieuStep>
                           ),
                         ),
                       ),
-                      child: Text('Suivant',
+                      child: const Text('Suivant',
                           style: TextStyle(
                             fontFamily: 'Larken Bold',
                             color: const Color.fromARGB(255, 68, 0, 107),
