@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astro2/astroProfileRegister/registerStepOne.dart';
@@ -13,10 +15,10 @@ class _SplashScreenSecondState extends State<SplashScreenSecond> {
   @override
   void initState() {
     super.initState();
-// Timer(
-//     Duration(seconds: 3),
-//     () => Navigator.pushReplacement(
-//         context, MaterialPageRoute(builder: (context) => SplashScreen2())));
+    // Timer(
+    //   Duration(seconds: 3),
+    // () => Navigator.pushReplacement(context,
+    //   MaterialPageRoute(builder: (context) => RegisterStepOne())));
   }
 
   @override
@@ -88,7 +90,8 @@ class _SplashScreenSecondState extends State<SplashScreenSecond> {
                   child: ElevatedButton(
                     child: Text(
                       'Get Started',
-                      style: GoogleFonts.adventPro(
+                      style: TextStyle(
+                        fontFamily: 'Larken Bold',
                         color: Color.fromARGB(255, 68, 0, 107),
                         fontWeight: FontWeight.w400,
                       ),

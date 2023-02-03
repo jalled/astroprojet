@@ -14,6 +14,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../bloC/glassphormismResources.dart';
 import 'package:http/http.dart' as http;
 
+import 'horoscopeHiver2023.dart';
+
 class HomeHoroscope extends StatefulWidget {
   const HomeHoroscope({super.key});
 
@@ -25,7 +27,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
     with TickerProviderStateMixin {
   static List<Contents> list_horoscope = [];
   static List<Contents> list_horoscope_jour = [];
-  static List<ContentH> list_horoscope_hiver = [];
 
   final ScrollController _mycontroller = new ScrollController();
 
@@ -41,11 +42,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
         list_horoscope_jour = value;
       });
     });
-    //  getHoroscopeHiver().then((value) {
-    //  setState(() {
-    //  list_horoscope_hiver = value;
-    //});
-    //});
   }
 
   @override
@@ -244,7 +240,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
 
   Widget TabBarHoroscope(context) {
     double opacityLevel = 1.0;
-    TabController _tabController = TabController(length: 4, vsync: this);
+    TabController _tabController = TabController(length: 3, vsync: this);
 
     return Container(
       child: Column(
@@ -253,7 +249,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
             child: Align(
               alignment: Alignment.centerLeft,
               child: TabBar(
-                labelPadding: const EdgeInsets.only(left: 20, right: 20),
+                labelPadding: const EdgeInsets.only(left: 40, right: 20),
                 controller: _tabController,
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
@@ -270,8 +266,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                 tabs: [
                   Tab(text: "Aujourd'hui"),
                   Tab(text: "Demain"),
-                  Tab(text: "Semaine"),
-                  Tab(text: "Mensuel"),
+                  Tab(text: "Hiver2023"),
                 ],
               ),
             ),
@@ -342,10 +337,14 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          list_horoscope[0].phrase.toString(),
+                                          list_horoscope.isNotEmpty
+                                              ? list_horoscope[0]
+                                                  .phrase
+                                                  .toString()
+                                              : '',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 12,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -394,9 +393,11 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    list_horoscope[0]
-                                                        .love
-                                                        .toString(),
+                                                    list_horoscope.isNotEmpty
+                                                        ? list_horoscope[0]
+                                                            .love
+                                                            .toString()
+                                                        : '',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
@@ -456,9 +457,11 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    list_horoscope[0]
-                                                        .argent
-                                                        .toString(),
+                                                    list_horoscope.isNotEmpty
+                                                        ? list_horoscope[0]
+                                                            .argent
+                                                            .toString()
+                                                        : '',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
@@ -519,9 +522,11 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    list_horoscope[0]
-                                                        .family
-                                                        .toString(),
+                                                    list_horoscope.isNotEmpty
+                                                        ? list_horoscope[0]
+                                                            .family
+                                                            .toString()
+                                                        : '',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
@@ -877,12 +882,14 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          list_horoscope_jour[0]
-                                              .phrase
-                                              .toString(),
+                                          list_horoscope_jour.isNotEmpty
+                                              ? list_horoscope_jour[0]
+                                                  .phrase
+                                                  .toString()
+                                              : '',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
-                                            fontSize: 12,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.w300,
                                             color: Colors.white,
                                           ),
@@ -933,9 +940,12 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    list_horoscope_jour[0]
-                                                        .love
-                                                        .toString(),
+                                                    list_horoscope_jour
+                                                            .isNotEmpty
+                                                        ? list_horoscope_jour[0]
+                                                            .love
+                                                            .toString()
+                                                        : '',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
@@ -996,9 +1006,12 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    list_horoscope_jour[0]
-                                                        .argent
-                                                        .toString(),
+                                                    list_horoscope_jour
+                                                            .isNotEmpty
+                                                        ? list_horoscope_jour[0]
+                                                            .argent
+                                                            .toString()
+                                                        : '',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
@@ -1060,11 +1073,12 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   child: ExpandText(
-                                                    list_horoscope_jour[0]
-                                                        .family
-                                                        .toString(),
-
-                                                    // 'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
+                                                    list_horoscope_jour
+                                                            .isNotEmpty
+                                                        ? list_horoscope_jour[0]
+                                                            .family
+                                                            .toString()
+                                                        : '',
                                                     style: GoogleFonts.poppins(
                                                       color: Colors.white,
                                                     ),
@@ -1351,11 +1365,11 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          list_horoscope_jour[0]
-                                              .advice
-                                              .toString(),
-
-                                          // "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
+                                          list_horoscope_jour.isNotEmpty
+                                              ? list_horoscope_jour[0]
+                                                  .advice
+                                                  .toString()
+                                              : '',
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
                                             fontSize: 12,
@@ -1376,551 +1390,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                     ),
                   ),
 
-                  //---------------------Scroll Core Widget Horoscope-------------------------------------------
-
-                  SingleChildScrollView(
-                    child: Stack(
-                      children: [
-                        SafeArea(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20, bottom: 0, right: 0, left: 40),
-                            child: Column(
-                              children: [
-                                Glassmorphism(
-                                  blur: 15,
-                                  opacity: 0.2,
-                                  radius: 20,
-                                  child: Container(
-                                    height: 170,
-                                    width: 350,
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      children: [
-                                        Glassmorphism(
-                                          blur: 20,
-                                          opacity: 0.1,
-                                          radius: 30.0,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              // handle push to HomeScreen
-                                            },
-                                            child: Container(
-                                              height: 30,
-                                              width: 340,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  'Phrase du Jour',
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 20,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text(
-                                          "On Ne Peut Vaincre La Nature Qu'.en Lui Obéissant.",
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 50),
-                                Container(
-                                  // height: 300,
-                                  width: 400,
-                                  child: Flexible(
-                                    child: Card(
-                                      color:
-                                          const Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/Coeur.svg'),
-                                                const SizedBox(width: 20),
-                                                SvgPicture.asset(
-                                                    'assets/images/Amour.svg'),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8),
-                                            // Text Horoscope du jour
-
-                                            Container(
-                                              width: 400,
-                                              padding: const EdgeInsets.all(15),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.white,
-                                                  ),
-                                                  // color: Colors.yellow[100],
-                                                  // border: Border(
-                                                  //     left: BorderSide(
-                                                  //   color: Colors.green,
-                                                  //   width: 5,
-                                                  // )),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Expanded(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    indicatorIconColor:
-                                                        Colors.white,
-                                                    indicatorIconSize: 27,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // 2eme container
-                                const SizedBox(height: 40),
-                                SizedBox(
-                                  // height: 300,
-                                  width: 400,
-                                  child: Flexible(
-                                    child: Card(
-                                      color:
-                                          const Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/ArgentLog.svg'),
-                                                const SizedBox(width: 20),
-                                                SvgPicture.asset(
-                                                    'assets/images/Argent.svg'),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8),
-                                            // Text Horoscope du Mois
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              padding: const EdgeInsets.all(15),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.white,
-                                                  ),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Expanded(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    indicatorIconColor:
-                                                        Colors.white,
-                                                    indicatorIconSize: 27,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // 3eme Container
-                                const SizedBox(height: 40),
-                                SizedBox(
-                                  // height: 300,
-                                  width: 400,
-                                  child: Flexible(
-                                    child: Card(
-                                      color:
-                                          const Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/Famille.svg'),
-                                                const SizedBox(width: 20),
-                                                SvgPicture.asset(
-                                                    'assets/images/FamilleLogo.svg'),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8),
-                                            // Text Horoscope du Mois
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-
-                                              padding: const EdgeInsets.all(15),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.white,
-                                                  ),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Expanded(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                  ),
-                                                ),
-                                              ),
-                                              //  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // Barometre
-
-                                const SizedBox(height: 40),
-                                Container(
-                                  width: 400,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.white,
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20))),
-                                  child: Flexible(
-                                    child: Card(
-                                      color: Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            SvgPicture.asset(
-                                                'assets/images/FamilleLogo.svg'),
-                                            const SizedBox(height: 4),
-                                            SvgPicture.asset(
-                                                'assets/images/Famille.svg'),
-                                            const SizedBox(height: 12),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white
-                                                          .withOpacity(0.15),
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  20))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          'Amour',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontSize: 16,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 80),
-                                                      RatingBar.builder(
-                                                        itemSize: 20,
-                                                        initialRating: 3,
-                                                        minRating: 1,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        allowHalfRating: true,
-                                                        itemCount: 3,
-                                                        itemPadding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    4.0),
-                                                        itemBuilder:
-                                                            (context, _) =>
-                                                                const Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onRatingUpdate:
-                                                            (rating) {
-                                                          print(rating);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                // Card two
-                                                const SizedBox(height: 10),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white
-                                                          .withOpacity(0.15),
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  20))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          'Argent,Carriere ',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontSize: 16,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 25),
-                                                      RatingBar.builder(
-                                                        itemSize: 20,
-                                                        initialRating: 1,
-                                                        minRating: 1,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        allowHalfRating: true,
-                                                        itemCount: 3,
-                                                        itemPadding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    4.0),
-                                                        itemBuilder:
-                                                            (context, _) =>
-                                                                const Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onRatingUpdate:
-                                                            (rating) {
-                                                          print(rating);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                // Card three
-                                                SizedBox(height: 10),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white
-                                                          .withOpacity(0.15),
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  20))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          'Famille, Ami, Santé',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontSize: 16,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      //SizedBox(width: 25),
-                                                      RatingBar.builder(
-                                                        itemSize: 20,
-                                                        initialRating: 1,
-                                                        minRating: 1,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        allowHalfRating: true,
-                                                        itemCount: 3,
-                                                        itemPadding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    4.0),
-                                                        itemBuilder:
-                                                            (context, _) =>
-                                                                const Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onRatingUpdate:
-                                                            (rating) {
-                                                          print(rating);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                SizedBox(height: 40),
-                                Glassmorphism(
-                                  blur: 15,
-                                  opacity: 0.2,
-                                  radius: 20,
-                                  child: Container(
-                                    // dynamic selon le text
-                                    height: 190,
-                                    width: 350,
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      children: [
-                                        Glassmorphism(
-                                          blur: 20,
-                                          opacity: 0.1,
-                                          radius: 30.0,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              // handle push to HomeScreen
-                                            },
-                                            child: Container(
-                                              height: 30,
-                                              width: 340,
-                                              // padding: const EdgeInsets.symmetric(
-                                              //   vertical: 0,
-                                              //   horizontal: 0,
-                                              // ),
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  'Notre conseil du Jour',
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 20,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text(
-                                          "C’est en lâchant prise que vous réussirez à vaincre vos peurs du lendemain. Votre entourage vous aidera dans ce sens !",
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   //---------------------------------ITEM 4 ---------------------------------
-
                   SingleChildScrollView(
                     child: Stack(
                       children: [
@@ -1935,7 +1405,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                   opacity: 0.2,
                                   radius: 20,
                                   child: Container(
-                                    height: 170,
+                                    height: 190,
                                     width: 350,
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
@@ -1946,19 +1416,25 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           radius: 30.0,
                                           child: TextButton(
                                             onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HorscopeHiver()),
+                                              );
                                               // handle push to HomeScreen
                                             },
-                                            child: Container(
-                                              height: 30,
+                                            child: SizedBox(
+                                              height: 40,
                                               width: 340,
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  'Phrase du Jour',
+                                                  'Horoscope Hiver 2023 ',
                                                   style: GoogleFonts.poppins(
-                                                    fontSize: 20,
+                                                    fontSize: 18,
                                                     color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                               ),
@@ -1969,7 +1445,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           height: 20,
                                         ),
                                         Text(
-                                          "On Ne Peut Vaincre La Nature Qu'.en Lui Obéissant.",
+                                          "Amour, boulot, famille, travail, santé… dans notre rubrique Horoscope de l’hiver, vous trouverez tout ce que vous voulez savoir",
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.poppins(
                                             fontSize: 12,
@@ -1982,181 +1458,10 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 50),
-                                Container(
-                                  // height: 300,
-                                  width: 400,
-                                  child: Flexible(
-                                    child: Card(
-                                      color: Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/Coeur.svg'),
-                                                SizedBox(width: 20),
-                                                SvgPicture.asset(
-                                                    'assets/images/Amour.svg'),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8),
-                                            // Text Horoscope du jour
 
-                                            Container(
-                                              width: 400,
-                                              padding: const EdgeInsets.all(15),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.white,
-                                                  ),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Expanded(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 // 2eme container
                                 const SizedBox(height: 40),
-                                SizedBox(
-                                  width: 400,
-                                  child: Flexible(
-                                    child: Card(
-                                      color: Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/ArgentLog.svg'),
-                                                SizedBox(width: 20),
-                                                SvgPicture.asset(
-                                                    'assets/images/Argent.svg'),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8),
-                                            // Text Horoscope du Mois
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              padding: const EdgeInsets.all(15),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.white,
-                                                  ),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Expanded(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    indicatorIconColor:
-                                                        Colors.white,
-                                                    indicatorIconSize: 27,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // 3eme Container
-                                const SizedBox(height: 40),
-                                SizedBox(
-                                  // height: 300,
-                                  width: 400,
-                                  child: Flexible(
-                                    child: Card(
-                                      color: Color.fromARGB(255, 68, 0, 107),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/Famille.svg'),
-                                                SizedBox(width: 20),
-                                                SvgPicture.asset(
-                                                    'assets/images/FamilleLogo.svg'),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8),
-                                            // Text Horoscope du Mois
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              padding: const EdgeInsets.all(15),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: Colors.white,
-                                                ),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(20)),
-                                              ),
-                                              child: Expanded(
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: ExpandText(
-                                                    'Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour.,Toujours aux prises avec la sévère planète Saturne, vous vous poserez beaucoup de questions concernant votre vie de couple. Entre la fuite, les mises au point, et les rapprochements, vous aurez parfois du mal à vous situer. Mais si vos différends ne sont pas réglés rapidement, ils deviendront plus compliqués ! Célibataire, le grand amour, vous en rêvez, bien sûr... Alors, réjouissez-vous, car le Ciel pourrait bien vous en rapprocher ce jour',
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+
                                 // Barometre
 
                                 const SizedBox(height: 40),
@@ -2170,7 +1475,8 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                           Radius.circular(20))),
                                   child: Flexible(
                                     child: Card(
-                                      color: Color.fromARGB(255, 68, 0, 107),
+                                      color:
+                                          const Color.fromARGB(255, 68, 0, 107),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8),
                                         child: Column(
@@ -2180,264 +1486,9 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                             const SizedBox(height: 4),
                                             SvgPicture.asset(
                                                 'assets/images/Famille.svg'),
-                                            const SizedBox(height: 12),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white
-                                                          .withOpacity(0.15),
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  20))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          'Amour',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontSize: 16,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 80),
-                                                      RatingBar.builder(
-                                                        itemSize: 20,
-                                                        initialRating: 3,
-                                                        minRating: 1,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        allowHalfRating: true,
-                                                        itemCount: 3,
-                                                        itemPadding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    4.0),
-                                                        itemBuilder:
-                                                            (context, _) =>
-                                                                const Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onRatingUpdate:
-                                                            (rating) {
-                                                          print(rating);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                // Card two
-                                                const SizedBox(height: 10),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white
-                                                          .withOpacity(0.15),
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  20))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          'Argent,Carriere ',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontSize: 16,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 25),
-                                                      RatingBar.builder(
-                                                        itemSize: 20,
-                                                        initialRating: 1,
-                                                        minRating: 1,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        allowHalfRating: true,
-                                                        itemCount: 3,
-                                                        itemPadding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    4.0),
-                                                        itemBuilder:
-                                                            (context, _) =>
-                                                                const Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onRatingUpdate:
-                                                            (rating) {
-                                                          print(rating);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                // Card three
-                                                const SizedBox(height: 10),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white
-                                                          .withOpacity(0.15),
-                                                      border: Border.all(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  20))),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          'Famille, Ami, Santé',
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontSize: 16,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      RatingBar.builder(
-                                                        itemSize: 20,
-                                                        initialRating: 1,
-                                                        minRating: 1,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        allowHalfRating: true,
-                                                        itemCount: 3,
-                                                        itemPadding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    4.0),
-                                                        itemBuilder:
-                                                            (context, _) =>
-                                                                const Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                        ),
-                                                        onRatingUpdate:
-                                                            (rating) {
-                                                          print(rating);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                              ],
-                                            ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 40),
-                                Glassmorphism(
-                                  blur: 15,
-                                  opacity: 0.2,
-                                  radius: 20,
-                                  child: Container(
-                                    // dynamic selon le text
-                                    height: 190,
-                                    width: 350,
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      children: [
-                                        Glassmorphism(
-                                          blur: 20,
-                                          opacity: 0.1,
-                                          radius: 30.0,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              // handle push to HomeScreen
-                                            },
-                                            child: Container(
-                                              height: 40,
-                                              width: 360,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "ee",
-                                                  //   "Nos conseils pour cette période d'hiver pour le ${list_horoscope_hiver[0].sign}",
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text(
-                                          'fd',
-                                          // advice
-                                          //   list_horoscope_hiver[0]
-                                          //     .advice
-                                          //   .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                      ],
                                     ),
                                   ),
                                 ),
@@ -2512,35 +1563,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
       sharedPreferences.setString("credit", credits);
 
       return list_horoscope_jour;
-    });
-  }
-
-  Future<List<ContentH>> getHoroscopeHiver() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    //var signe = sharedPreferences.getString('signe');
-    // print(signe);
-    String signe = 'Cancer';
-    const _myUrl =
-        'https://api.aveniroscope.com/mobile/get-content-horoscope-hiver';
-
-    return await http.post(Uri.parse(_myUrl), body: {
-      "signe": signe,
-    }).then((response) {
-      print(response.body.toString());
-
-      HoroscopeHiver horoscopeHiver =
-          HoroscopeHiver.fromJson(json.decode(response.body));
-      List<ContentH> list_horoscope_hiver = [];
-      for (int i = 0; i < horoscopeHiver.content.length; i++) {
-        list_horoscope_hiver.add(horoscopeHiver.content[i]);
-        print('BABABBAABBABABABA');
-        print(horoscopeHiver.content[i].id);
-      }
-      String credits = list_horoscope_jour[0].phrase as String;
-      sharedPreferences.setString("credit", credits);
-
-      return list_horoscope_hiver;
     });
   }
 }

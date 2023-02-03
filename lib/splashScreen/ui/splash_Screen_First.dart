@@ -18,10 +18,12 @@ class _SplashScreenFirstState extends State<SplashScreenFirst> {
   @override
   void initState() {
     super.initState();
-    //Timer(
-    // const Duration(seconds: 3),
-    //() => Navigator.pushReplacement(context,
-    //MaterialPageRoute(builder: (context) => const SplashScreenSecond())));
+    Timer(
+        const Duration(seconds: 3),
+        () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const SplashScreenSecond())));
   }
 
   @override

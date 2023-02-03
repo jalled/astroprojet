@@ -464,9 +464,11 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
                                       child: SingleChildScrollView(
                                         scrollDirection: Axis.vertical,
                                         child: Text(
-                                          list_compatibilite[0]
-                                              .content!
-                                              .toString(),
+                                          list_compatibilite.isNotEmpty
+                                              ? list_compatibilite[0]
+                                                  .content
+                                                  .toString()
+                                              : '',
                                           style: const TextStyle(
                                             fontFamily: 'Larken Light',
                                             fontSize: 15,

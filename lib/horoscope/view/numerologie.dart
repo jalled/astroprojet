@@ -260,14 +260,18 @@ class _NumerologieState extends State<Numerologie> {
                                                 ),
                                               ),
                                             ),
-                                            const Padding(
+                                            Padding(
                                               padding: EdgeInsets.only(
                                                   top: 5,
                                                   bottom: 0,
                                                   left: 20,
                                                   right: 20),
                                               child: Text(
-                                                'omre',
+                                                list_numerologie.isNotEmpty
+                                                    ? list_numerologie[0]
+                                                        .number1
+                                                        .toString()
+                                                    : '',
                                                 style: TextStyle(
                                                   fontFamily: 'Larken Bold',
                                                   fontSize: 25,
@@ -315,10 +319,11 @@ class _NumerologieState extends State<Numerologie> {
                                                 left: 20,
                                                 right: 20),
                                             child: Text(
-                                              '3',
-                                              // list_numerologie[0]
-                                              //   .number2!
-                                              // .toString(),
+                                              list_numerologie.isNotEmpty
+                                                  ? list_numerologie[0]
+                                                      .number2
+                                                      .toString()
+                                                  : '',
                                               style: TextStyle(
                                                 fontFamily: 'Larken Bold',
                                                 fontSize: 25,
@@ -348,7 +353,11 @@ class _NumerologieState extends State<Numerologie> {
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.vertical,
                                     child: Text(
-                                      list_numerologie[0].content ?? '',
+                                      list_numerologie.isNotEmpty
+                                          ? list_numerologie[0]
+                                              .content
+                                              .toString()
+                                          : '',
                                       style: TextStyle(
                                         fontFamily: 'Larken Light',
                                         fontSize: 14,

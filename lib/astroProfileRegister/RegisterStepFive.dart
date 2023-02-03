@@ -1,4 +1,5 @@
 import 'package:astro2/astroProfileRegister/registerStepFour.dart';
+import 'package:astro2/astro_Home/view/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,7 +82,7 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const RegisterStepFour()),
+                                builder: (context) => const Home()),
                           );
                         },
                         style: ButtonStyle(

@@ -86,7 +86,7 @@ class _LieuStepState extends State<LieuStep>
             Padding(
               padding: EdgeInsets.only(
                   left: deviceSize.width * 0.04,
-                  right: deviceSize.width * 0.5,
+                  right: deviceSize.width * 0.3,
                   top: deviceSize.height * 0.07,
                   bottom: 0),
               child: Text(
@@ -94,7 +94,7 @@ class _LieuStepState extends State<LieuStep>
                 style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontWeight: FontWeight.w200,
-                  fontSize: 12,
+                  fontSize: 13,
                 ),
               ),
             ),
@@ -176,7 +176,7 @@ class _LieuStepState extends State<LieuStep>
 
                 Padding(
                   padding: EdgeInsets.only(
-                      left: deviceSize.width * 0.087,
+                      left: deviceSize.width * 0,
                       right: deviceSize.width * 0.087,
                       top: deviceSize.height * 0.06,
                       bottom: 0),
