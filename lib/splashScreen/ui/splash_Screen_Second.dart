@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astro2/astroProfileRegister/registerStepOne.dart';
 
+import '../../astroLogin/loginAstro.dart';
+
 class SplashScreenSecond extends StatefulWidget {
   const SplashScreenSecond({super.key});
 
@@ -100,7 +102,7 @@ class _SplashScreenSecondState extends State<SplashScreenSecond> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const RegisterStepOne()),
+                            builder: (context) => ProfileRegister()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

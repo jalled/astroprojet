@@ -2,11 +2,9 @@ import 'package:astro2/astroProfileRegister/RegisterStepFive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astro2/astroProfileRegister/registerStepTwo.dart';
 
 class LieuStep extends StatefulWidget {
   const LieuStep({Key? key}) : super(key: key);
-
   @override
   State<LieuStep> createState() => _LieuStepState();
 }
@@ -15,7 +13,6 @@ class _LieuStepState extends State<LieuStep>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +28,6 @@ class _LieuStepState extends State<LieuStep>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -61,8 +57,11 @@ class _LieuStepState extends State<LieuStep>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 30, bottom: 0, right: 0, left: 0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/steps5.png",
                   scale: 0.8,
@@ -75,17 +74,20 @@ class _LieuStepState extends State<LieuStep>
               visible: isVisible,
               child: Padding(
                 padding: EdgeInsets.only(
-                    top: deviceSize.height * 0.1, bottom: 0, right: 0, left: 0),
+                    top: deviceSize.height * 0.05,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/lieustep.png",
-                  height: 107,
+                  height: 144,
                   width: 292,
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: deviceSize.width * 0.04,
+                  left: deviceSize.width * 0.01,
                   right: deviceSize.width * 0.3,
                   top: deviceSize.height * 0.07,
                   bottom: 0),
@@ -93,15 +95,15 @@ class _LieuStepState extends State<LieuStep>
                 "Séléctionner votre lieu de naissance",
                 style: GoogleFonts.poppins(
                   color: Colors.white,
-                  fontWeight: FontWeight.w200,
+                  fontWeight: FontWeight.w300,
                   fontSize: 13,
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: deviceSize.height * 0.03,
-                  right: deviceSize.width * 0.03,
+                  left: deviceSize.height * 0.02,
+                  right: deviceSize.width * 0.04,
                   top: 10,
                   bottom: 0),
               child: TextFormField(
@@ -112,7 +114,6 @@ class _LieuStepState extends State<LieuStep>
                 },
                 decoration: InputDecoration(
                   hintText: "Sélectionner lieu",
-
                   hintStyle: const TextStyle(
                       color: Color.fromARGB(255, 237, 223, 223),
                       fontSize: 14,
@@ -120,13 +121,9 @@ class _LieuStepState extends State<LieuStep>
                   constraints: BoxConstraints(
                       maxHeight: 54, maxWidth: deviceSize.width * 1),
                   fillColor: Color(0xff875ba0),
-
                   filled: true,
-
                   isDense: true,
-
                   // errorText: 'Error message',
-
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -137,7 +134,7 @@ class _LieuStepState extends State<LieuStep>
               padding: EdgeInsets.only(
                   left: deviceSize.height * 0.03,
                   right: deviceSize.height * 0.03,
-                  top: deviceSize.height * 0.14,
+                  top: deviceSize.height * 0.12,
                   bottom: 0),
               child: Text(
                 "Pour déterminer votre ascendant astrologique,\n  l'heure de votre naissance est cruciale",
@@ -173,7 +170,6 @@ class _LieuStepState extends State<LieuStep>
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(
                       left: deviceSize.width * 0,

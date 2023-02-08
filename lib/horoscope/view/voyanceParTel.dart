@@ -176,7 +176,7 @@ class VoyanceTelScreen extends StatelessWidget {
                                               bottom: 10 * fem,
                                               child: Center(
                                                 child: Text(
-                                                  "Service 0,80€ /min \n +Prix appel",
+                                                  "Service 0,80€ /min \n +Prix d'appel",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -218,7 +218,7 @@ class VoyanceTelScreen extends StatelessWidget {
                               SizedBox(height: 18),
                               CircleWidget("searchhh", 1.5, "1"),
                               SizedBox(height: 10),
-                              CustomText("Je consulte des profils d'experts",
+                              CustomText("Je consulte les profils des experts ",
                                   16 * fem, 1.2575 * ffem / fem),
                               SizedBox(height: 18),
                               CircleWidget("handdd", 1.5, "2"),

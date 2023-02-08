@@ -2,35 +2,28 @@ import 'package:astro2/astroProfileRegister/registerStepTwo.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 class RegisterStepOne extends StatefulWidget {
   const RegisterStepOne({Key? key}) : super(key: key);
-
   @override
   State<RegisterStepOne> createState() => _RegisterStepOneState();
 }
-
 class _RegisterStepOneState extends State<RegisterStepOne>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
   }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -90,9 +83,9 @@ class _RegisterStepOneState extends State<RegisterStepOne>
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: deviceSize.height * 0.05,
-                  right: deviceSize.width * 0.70,
-                  top: deviceSize.height * 0.1,
+                  left: deviceSize.height * 0.01,
+                  right: deviceSize.width * 0.75,
+                  top: deviceSize.height * 0.07,
                   bottom: 0),
               child: Text(
                 "Prénom",
@@ -123,18 +116,14 @@ class _RegisterStepOneState extends State<RegisterStepOne>
                   hintStyle: const TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.w300),
                   constraints: BoxConstraints(
-                      maxHeight: 54, maxWidth: deviceSize.width * 0.75),
+                      maxHeight: 54, maxWidth: deviceSize.width * 0.9),
                   fillColor: Colors.white,
                   filled: true,
-
                   isDense: true,
-
                   // errorText: 'Error message',
-
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-
                   contentPadding: EdgeInsets.only(
                     left: deviceSize.height * 0.05,
                     bottom: deviceSize.height * 0.05,
@@ -148,7 +137,7 @@ class _RegisterStepOneState extends State<RegisterStepOne>
               padding: EdgeInsets.only(
                   left: deviceSize.height * 0.03,
                   right: deviceSize.height * 0.03,
-                  top: deviceSize.height * 0.14,
+                  top: deviceSize.height * 0.12,
                   bottom: 0),
               child: Text(
                 'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
@@ -183,7 +172,6 @@ class _RegisterStepOneState extends State<RegisterStepOne>
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(
                       left: 0,

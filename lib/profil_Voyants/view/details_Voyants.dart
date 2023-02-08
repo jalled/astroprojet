@@ -297,13 +297,15 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                   ),
                 ],
               ),
-            ),
+            ),  
+              
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(18.0),
           child: Text(
             widget.valueText.toString(),
+            textAlign: TextAlign.justify,
             style: GoogleFonts.poppins(
               fontSize: 10,
               fontWeight: FontWeight.w300,
@@ -325,14 +327,15 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                    text: '15 Minutes gratuites puis',
+                    text: '15 min gratuites',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   TextSpan(
-                    text: ' ${widget.valueprice.toString()}€/minute',
+                    text:
+                        'Au-delà de 15 min: ${widget.valueprice.toString()}€/minute',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w300,
@@ -369,7 +372,7 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                       Icons.phone,
                       size: 24.0,
                     ),
-                    label: Text('Appeler moi'), // <-- Text
+                    label: Text('Appelez moi'), // <-- Text
                   ),
                 ),
                 SizedBox(width: 10),
@@ -380,7 +383,6 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                     onPressed: () {},
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        //  Colors.white.withOpacity(0.15),
                         Colors.white.withOpacity(0.25),
                       ),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -415,62 +417,6 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
           ),
         ),
         const SizedBox(height: 0),
-
-        /*
-          Padding(
-            padding:
-                const EdgeInsets.only(right: 20, left: 20, top: 0, bottom: 0),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Colors.white,
-                    Colors.white54,
-                    Colors.white70
-                    //add more colors
-                  ]),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color:
-                            Color.fromRGBO(0, 0, 0, 0.57), //shadow for button
-                        blurRadius: 5) //blur radius of shadow
-                  ]),
-              child: Padding(
-                padding: EdgeInsets.only(left: 30, right: 30),
-                child: DropdownButton(
-                  // Initial Value
-                  value: dropdownvalue,
-
-                  // Down Arrow Icon
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  dropdownColor: Colors.white10, //dropdown background color
-                  underline: Container(), //remove underline
-                  isExpanded: true,
-                  elevation: 20,
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                  iconEnabledColor: Colors.red,
-
-                  items: DateFormat()
-                      .dateSymbols
-                      .WEEKDAYS
-                      .map((String dropDownStringItem) {
-                    return DropdownMenuItem<String>(
-                      value: dropDownStringItem,
-                      child: Text(dropDownStringItem),
-                    );
-                  }).toList(),
-
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ),
-
-*/
       ],
     );
   }

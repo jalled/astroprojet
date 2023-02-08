@@ -8,7 +8,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 class RegisterStepThree extends StatefulWidget {
   const RegisterStepThree({Key? key}) : super(key: key);
-
   @override
   State<RegisterStepThree> createState() => _RegisterStepThreeState();
 }
@@ -17,7 +16,6 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -33,9 +31,7 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     DateTime date = DateTime(1994, 08, 19);
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -65,7 +61,11 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    left: 0,
+                    right: 0),
                 child: Image.asset(
                   "assets/images/steps3.png",
                   scale: 0.8,
@@ -77,7 +77,11 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.all(35.0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/naissance2.png",
                   height: 160,
@@ -87,12 +91,11 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
             ),
             Padding(
               padding: EdgeInsets.only(
-                  left: deviceSize.height * 0.03,
-                  right: deviceSize.height * 0.03,
-                  top: 0,
+                  left: deviceSize.height * 0.05,
+                  right: deviceSize.height * 0.05,
+                  top: 40,
                   bottom: 0),
               child:
-
                   // Display a CupertinoDatePicker in date picker mode.
                   CupertinoTheme(
                       data: const CupertinoThemeData(
@@ -102,13 +105,12 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
                         ),
                       ),
                       child: Container(
-                        height: 120,
+                        height: 100,
                         width: 420,
                         child: CupertinoDatePicker(
                           initialDateTime: date,
                           mode: CupertinoDatePickerMode.date,
                           dateOrder: DatePickerDateOrder.dmy,
-
                           use24hFormat: true,
                           // This is called when the user changes the date.
                           onDateTimeChanged: (DateTime newDate) {
@@ -116,16 +118,12 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
                           },
                         ),
                       )),
-
-              // In this example, the date is formatted manually. You can
-              // use the intl package to format the value based on the
-              // user's locale settings.
             ),
             Padding(
               padding: EdgeInsets.only(
                   left: deviceSize.height * 0.03,
                   right: deviceSize.height * 0.03,
-                  top: deviceSize.height * 0.14,
+                  top: deviceSize.height * 0.12,
                   bottom: 0),
               child: Text(
                 "Pour connaitre votre signe astrologique, nous \n aurons besoin de votre date de naissance.",
@@ -161,7 +159,6 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(
                       left: 0,

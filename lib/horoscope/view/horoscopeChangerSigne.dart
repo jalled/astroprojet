@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:astro2/astroProfileRegister/profileUser.dart';
 import 'package:astro2/horoscope/model/HoscopeModel.dart';
-import 'package:astro2/horoscope/view/horoscopeChangerSigne.dart';
 import 'package:astro2/horoscope/view/numerologie.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:expand_widget/expand_widget.dart';
@@ -16,21 +15,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../bloC/glassphormismResources.dart';
 import 'package:http/http.dart' as http;
 
+import 'home_horoscope.dart';
 import 'horoscopeHiver2023.dart';
 
-class HomeHoroscope extends StatefulWidget {
-  const HomeHoroscope({super.key});
+class ChangerSigne extends StatefulWidget {
+  ChangerSigne({
+    super.key,
+  });
 
   @override
-  State<HomeHoroscope> createState() => _HomeHoroscopeState();
+  State<ChangerSigne> createState() => _ChangerSigneState();
 }
 
-class _HomeHoroscopeState extends State<HomeHoroscope>
+class _ChangerSigneState extends State<ChangerSigne>
     with TickerProviderStateMixin {
   static List<Contents> list_horoscope = [];
 
   static List<Contents> list_horoscope_jour = [];
-  static List<Contents> list_horoscope_jour1 = [];
 
   final List<String> SigneItems = [
     'Bélier',
@@ -47,7 +48,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
     'Poissons',
   ];
 
-  String? selectedValuesigne = 'Lion';
+  String? selectedValuesigne = 'Cancer';
 
   final ScrollController _mycontroller = new ScrollController();
   String signe = '';
@@ -173,7 +174,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
   Widget BlocProfil(context) {
     return Container(
       height: 60.0,
-      width: 450.0,
+      width: 350.0,
       child: Padding(
         padding: const EdgeInsets.only(left: 0, right: 0, top: 20, bottom: 0),
         child: Row(
@@ -200,86 +201,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Container(
-                height: 60.0,
-                width: 125.0,
-                // padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                child: DropdownButtonFormField2(
-                  value: selectedValuesigne,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.zero,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  isExpanded: true,
-                  hint: const Text(
-                    'Select Your Gender',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.black45,
-                  ),
-                  iconSize: 30,
-                  buttonHeight: 60,
-                  buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                  dropdownDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  items: SigneItems.map((item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: const TextStyle(
-                            fontSize: 11,
-                          ),
-                        ),
-                      )).toList(),
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Please select gender.';
-                    }
-                  },
-                  onChanged: (value) async {
-                    selectedValuesigne = value.toString();
-                    SharedPreferences sharedPreferences =
-                        await SharedPreferences.getInstance();
-                    sharedPreferences.setString("signe", value.toString());
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChangerSigne()),
-                    );
-
-                    setState(() {
-                      selectedValuesigne = value.toString();
-                      var signe2 = selectedValuesigne;
-                      getHoroscopeJour2(signe2).then((value) {
-                        setState(() {
-                          list_horoscope_jour = value;
-                        });
-                      });
-                    });
-                  },
-                  onSaved: (value) {
-                    setState(() {
-                      selectedValuesigne = value.toString();
-                    });
-                  },
-                ),
-              ),
-            ),
-
-/*
             OutlinedButton(
               onPressed: () {
                 Navigator.push(
@@ -303,7 +224,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                 side: const BorderSide(width: 2, color: Colors.white),
               ),
             ),
-*/
           ],
         ),
       ),
@@ -1640,8 +1560,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
   Future<List<Contents>> getHoroscopeDemain() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    //var signe = sharedPreferences.getString('signe');
-    // print(signe);
+    var signe = sharedPreferences.getString('signe');
 
     String jour = "demain";
     const _myUrl =
@@ -1669,7 +1588,8 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
   Future<List<Contents>> getHoroscopeJour() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    // String signe = signe;
+    var signe = sharedPreferences.getString('signe');
+
     String jour = "jour";
     const _myUrl =
         'https://api.aveniroscope.com/mobile/get-content-horoscope-by-day-and-signe';
@@ -1677,33 +1597,6 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
     return await http.post(Uri.parse(_myUrl),
         headers: <String, String>{},
         body: {"signe": signe, "jour": jour}).then((response) {
-      print(response.body.toString());
-
-      Horoscope horoscope = Horoscope.fromJson(json.decode(response.body));
-      List<Contents> list_horoscope_jour = [];
-      for (int i = 0; i < horoscope.content!.length; i++) {
-        list_horoscope_jour.add(horoscope.content![i]);
-        print('hahahahha');
-        print(horoscope.content![i].argent);
-      }
-      String credits = list_horoscope_jour[0].phrase as String;
-      sharedPreferences.setString("credit", credits);
-
-      return list_horoscope_jour;
-    });
-  }
-
-  Future<List<Contents>> getHoroscopeJour2(var signe2) async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    // String signe = signe;
-    String jour = "jour";
-    const _myUrl =
-        'https://api.aveniroscope.com/mobile/get-content-horoscope-by-day-and-signe';
-
-    return await http.post(Uri.parse(_myUrl),
-        headers: <String, String>{},
-        body: {"signe": signe2, "jour": jour}).then((response) {
       print(response.body.toString());
 
       Horoscope horoscope = Horoscope.fromJson(json.decode(response.body));

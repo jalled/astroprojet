@@ -5,7 +5,6 @@ import 'package:astro2/astroProfileRegister/registerStepThree.dart';
 
 class RegisterStepTwo extends StatefulWidget {
   const RegisterStepTwo({Key? key}) : super(key: key);
-
   @override
   State<RegisterStepTwo> createState() => _RegisterStepTwoState();
 }
@@ -14,7 +13,6 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -75,7 +73,11 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.all(35.0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/sexelogo.png",
                   height: 160,
@@ -90,7 +92,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                   top: 40,
                   bottom: 0),
               child: SizedBox(
-                width: deviceSize.width * 0.75,
+                width: deviceSize.width * 0.9,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
@@ -123,7 +125,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                   top: 7,
                   bottom: 0),
               child: SizedBox(
-                width: deviceSize.width * 0.75,
+                width: deviceSize.width * 0.9,
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
@@ -153,7 +155,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
               padding: EdgeInsets.only(
                   left: deviceSize.height * 0.03,
                   right: deviceSize.height * 0.03,
-                  top: deviceSize.height * 0.14,
+                  top: deviceSize.height * 0.12,
                   bottom: 0),
               child: Text(
                 'Les étoiles vous guident, découvrez ce \n         que votre signe vous cache',
@@ -188,7 +190,6 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(
                       left: 0,

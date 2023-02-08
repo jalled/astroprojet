@@ -34,8 +34,8 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
   }
 
   final List<String> genderItems = [
-    'male',
-    'female',
+    'Homme',
+    'Femme',
   ];
 
   final List<String> SigneOneItems = [
@@ -156,17 +156,6 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
                 child: DropdownButtonFormField2(
                   value: selectedValuegender,
                   decoration: InputDecoration(
-                    //Add isDense true and zero Padding.
-                    //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                    /*
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black45, width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.black45, width: 1)),
-                            */
-
                     filled: true,
                     fillColor: Colors.white,
                     isDense: true,
@@ -174,9 +163,6 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-
-                    //Add more decoration as you want here
-                    //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                   ),
                   isExpanded: true,
                   hint: const Text(

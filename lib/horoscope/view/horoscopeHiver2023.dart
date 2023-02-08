@@ -19,6 +19,9 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
   final ScrollController _mycontroller = new ScrollController();
   static List<ContentH> listHoroscopeHiver = [];
 
+  String _signe = '';
+  late SharedPreferences sharedprefs;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,6 +36,7 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       appBar: AppBar(
           title: Text(
             "HoroscopeHiver 2023",
@@ -122,7 +126,7 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
             padding:
                 const EdgeInsets.only(top: 450, bottom: 0, left: 30, right: 20),
             child: Text(
-              "Belier, découvrez votre \n     Horoscope Hiver",
+              "Belier, découvrez votre \n         Horoscope Hiver",
               style: GoogleFonts.poppins(
                 color: Colors.white,
                 fontSize: 30,
@@ -138,12 +142,17 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
+        
+        /*
+        
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/HiverTwo.png'),
             fit: BoxFit.cover,
           ),
         ),
+        */
+
         child: Column(
           children: [
             Padding(
@@ -169,7 +178,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                     listHoroscopeHiver.isNotEmpty
                         ? listHoroscopeHiver[0].couple.toString()
                         : '',
-                    //  "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers",
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                     ),
@@ -200,7 +208,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                     listHoroscopeHiver.isNotEmpty
                         ? listHoroscopeHiver[0].single.toString()
                         : '',
-                    // "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers",
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                     ),
@@ -231,7 +238,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                     listHoroscopeHiver.isNotEmpty
                         ? listHoroscopeHiver[0].money.toString()
                         : '',
-                    // "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers",
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                     ),
@@ -264,7 +270,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                       listHoroscopeHiver.isNotEmpty
                           ? listHoroscopeHiver[0].work.toString()
                           : '',
-                      // "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers",
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                       ),
@@ -274,7 +279,7 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 0, left: 50, right: 30),
+              padding: EdgeInsets.only(top: 0, bottom: 0, left: 30, right: 30),
               child: Expanded(
                 child: Text(
                   "Vitalité",
@@ -298,7 +303,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                       listHoroscopeHiver.isNotEmpty
                           ? listHoroscopeHiver[0].vitality.toString()
                           : '',
-                      // "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers",
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                       ),
@@ -335,7 +339,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                         listHoroscopeHiver.isNotEmpty
                             ? listHoroscopeHiver[0].advice.toString()
                             : '',
-                        // "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup   ",
                         style: GoogleFonts.poppins(
                           color: Colors.white,
                         ),
@@ -370,7 +373,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
                       listHoroscopeHiver.isNotEmpty
                           ? listHoroscopeHiver[0].advicePeriod.toString()
                           : '',
-                      // "Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers Amour couple Pendant l'hiver, le Bélier peut s'attendre à beaucoup d'amour et de romantisme. Ce sera une excellente période pour les couples, car ils auront l'occasion de se rapprocher et de se reconnecter. En effet, les astres seront alignés de manière à favoriser les relations amoureuses. Les Béliers",
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                       ),
@@ -384,30 +386,30 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
       ),
     );
   }
-}
 
-Future<List<ContentH>> getHoroscopeHiver() async {
-  final SharedPreferences sharedPreferences =
-      await SharedPreferences.getInstance();
+  Future<List<ContentH>> getHoroscopeHiver() async {
+    sharedprefs = await SharedPreferences.getInstance();
 
-  String signe = 'Cancer';
-  const _myUrl =
-      'https://api.aveniroscope.com/mobile/get-content-horoscope-hiver';
+    _signe = sharedprefs.getString('signe')!;
+    const _myUrl =
+        'https://api.aveniroscope.com/mobile/get-content-horoscope-hiver';
+    print(_signe);
 
-  return await http.post(Uri.parse(_myUrl), body: {
-    "signe": signe,
-  }).then((response) {
-    print(response.body.toString());
+    return await http.post(Uri.parse(_myUrl), body: {
+      "signe": _signe,
+    }).then((response) {
+      print(response.body.toString());
 
-    HoroscopeHiver horoscopeHiver =
-        HoroscopeHiver.fromJson(json.decode(response.body));
-    List<ContentH> listHoroscopeHiver = [];
-    for (int i = 0; i < horoscopeHiver.content.length; i++) {
-      listHoroscopeHiver.add(horoscopeHiver.content[i]);
-      print('BABABBAABBABABABA');
-      print(horoscopeHiver.content[i].id);
-    }
+      HoroscopeHiver horoscopeHiver =
+          HoroscopeHiver.fromJson(json.decode(response.body));
+      List<ContentH> listHoroscopeHiver = [];
+      for (int i = 0; i < horoscopeHiver.content.length; i++) {
+        listHoroscopeHiver.add(horoscopeHiver.content[i]);
+        print('BABABBAABBABABABA');
+        print(horoscopeHiver.content[i].id);
+      }
 
-    return listHoroscopeHiver;
-  });
+      return listHoroscopeHiver;
+    });
+  }
 }

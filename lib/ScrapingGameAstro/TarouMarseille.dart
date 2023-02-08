@@ -1,85 +1,3 @@
-import 'package:astro2/horoscope/bloC/modelView/horoscopeController.dart';
-import 'package:astro2/splashScreen/ui/splash_Screen_First.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-
-void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => UserModel()),
-  ], child: const MyApp()));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);  
-    return MediaQuery(
-      data: const MediaQueryData(),
-      child: ScreenUtilInit(
-          designSize: const Size(360, 690),
-          minTextAdapt: true,
-          splitScreenMode: true,
-          builder: (context, child) {
-            return AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle(
-                systemNavigationBarColor: Colors.white,
-                systemNavigationBarIconBrightness:
-                    Theme.of(context).backgroundColor.computeLuminance() > 0.5
-                        ? Brightness.dark
-                        : Brightness.light,
-                systemNavigationBarDividerColor: Colors.white,
-                statusBarColor: Colors.white,
-              ),
-              child: MaterialApp(
-                  title: 'Omrane Jalled',
-                  debugShowCheckedModeBanner: false,
-                  builder: (context, child) {
-                    ScreenUtil.init(context);
-
-                    return MediaQuery(
-                        data: MediaQuery.of(context)
-                            .copyWith(textScaleFactor: 1.0),
-                        child: AnnotatedRegion<SystemUiOverlayStyle>(
-                            value: SystemUiOverlayStyle(
-                              systemNavigationBarColor: Colors.white,
-                              systemNavigationBarIconBrightness:
-                                  Theme.of(context)
-                                              .backgroundColor
-                                              .computeLuminance() >
-                                          0.5
-                                      ? Brightness.dark
-                                      : Brightness.light,
-                              systemNavigationBarDividerColor: Colors.white,
-                              statusBarColor: Colors.white,
-                            ),
-                            child: child!));
-                  },
-                  theme: ThemeData(
-                    scaffoldBackgroundColor: Color.fromARGB(255, 68, 0, 107),
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    primarySwatch: Colors.blue,
-                  ),
-                  home: SplashScreenFirst()
-                  //Home(),
-                  ),
-            );
-          }),
-    );
-  }
-}
-
-
-
-
-
-
-/*
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -93,9 +11,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-// #enddocregion platform_importsz
-
-void main() => runApp(const MaterialApp(home: WebViewExample()));
+// #enddocregion platform_imports
 
 const String kNavigationExamplePage = '''
 <!DOCTYPE html><html>
@@ -152,14 +68,14 @@ const String kTransparentBackgroundPage = '''
   </html>
 ''';
 
-class WebViewExample extends StatefulWidget {
-  const WebViewExample({super.key});
+class GameScraper extends StatefulWidget {
+  const GameScraper({super.key});
 
   @override
-  State<WebViewExample> createState() => _WebViewExampleState();
+  State<GameScraper> createState() => _GameScraperState();
 }
 
-class _WebViewExampleState extends State<WebViewExample> {
+class _GameScraperState extends State<GameScraper> {
   late final WebViewController _controller;
 
   @override
@@ -249,19 +165,7 @@ Page resource error:
         ],
       ),
       body: WebViewWidget(controller: _controller),
-      floatingActionButton: favoriteButton(),
-    );
-  }
-
-  Widget favoriteButton() {
-    return FloatingActionButton(
-      onPressed: () async {
-        final String? url = await _controller.currentUrl();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Favorited $url')),
-        );
-      },
-      child: const Icon(Icons.favorite),
+      //  floatingActionButton: favoriteButton(),
     );
   }
 }
@@ -572,6 +476,3 @@ class NavigationControls extends StatelessWidget {
     );
   }
 }
-
-
-*/

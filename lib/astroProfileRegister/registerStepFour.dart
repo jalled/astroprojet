@@ -7,7 +7,6 @@ import 'package:astro2/astroProfileRegister/RegisterStepFive.dart';
 
 class RegisterStepFour extends StatefulWidget {
   const RegisterStepFour({Key? key}) : super(key: key);
-
   @override
   State<RegisterStepFour> createState() => _RegisterStepFourState();
 }
@@ -17,7 +16,6 @@ class _RegisterStepFourState extends State<RegisterStepFour>
   bool isChecked = false;
   bool isVisible = true;
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -33,7 +31,6 @@ class _RegisterStepFourState extends State<RegisterStepFour>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -43,7 +40,11 @@ class _RegisterStepFourState extends State<RegisterStepFour>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.05,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Text(
                   "Heure de votre naissance",
                   style: GoogleFonts.poppins(
@@ -58,7 +59,11 @@ class _RegisterStepFourState extends State<RegisterStepFour>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    left: 0,
+                    right: 0),
                 child: Image.asset(
                   "assets/images/steps4.png",
                   scale: 0.8,
@@ -70,18 +75,26 @@ class _RegisterStepFourState extends State<RegisterStepFour>
             Visibility(
               visible: isVisible,
               child: Padding(
-                padding: const EdgeInsets.all(37.0),
+                padding: EdgeInsets.only(
+                    top: deviceSize.height * 0.03,
+                    bottom: 0,
+                    right: 0,
+                    left: 0),
                 child: Image.asset(
                   "assets/images/heurenaissance.png",
-                  height: 150,
-                  width: 150,
+                  height: 160,
+                  width: 160,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.only(
+                  left: deviceSize.height * 0.05,
+                  right: deviceSize.height * 0.05,
+                  top: 40,
+                  bottom: 0),
               child: SizedBox(
-                  height: 140,
+                  height: 100,
                   width: 200,
                   child: CupertinoTheme(
                     data: CupertinoThemeData(
@@ -98,7 +111,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                   )),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10, left: deviceSize.width * 0.03),
+              padding: EdgeInsets.only(top: 15, left: deviceSize.width * 0.03),
               child: Row(
                 children: [
                   Checkbox(
@@ -121,8 +134,8 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     "Heure Inconnue",
                     style: GoogleFonts.poppins(
                         color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w300),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
                   )
                 ],
               ),
@@ -131,7 +144,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
               padding: EdgeInsets.only(
                   left: deviceSize.height * 0.03,
                   right: deviceSize.height * 0.03,
-                  top: deviceSize.height * 0.02,
+                  top: deviceSize.height * 0.047,
                   bottom: 0),
               child: Text(
                 'Pour déterminer votre ascendant astrologique,\n l’heure de votre naissance est cruciale.',
@@ -166,7 +179,6 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(
                       left: 0,
@@ -200,7 +212,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                           style: TextStyle(
                             fontFamily: 'Larken Bold',
                             color: const Color.fromARGB(255, 68, 0, 107),
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w400,  
                           )),
                     ),
                   ),

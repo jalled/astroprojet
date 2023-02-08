@@ -254,10 +254,10 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                           ),
                         ),
                         const SizedBox(
-                          width: 50,
+                          width: 30,
                         ),
                         SizedBox(
-                          width: 126,
+                          width: 140,
                           height: 109,
                           child: SingleChildScrollView(
                             child: Text(
@@ -267,7 +267,7 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
                               ),
-                            ),
+                                ),
                           ),
                         ),
                       ],
@@ -276,9 +276,10 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                   // -------------------------button here -------------------
 
                   Padding(
-                    padding: const EdgeInsets.only(top: 50, bottom: 0),
+                    padding:
+                        const EdgeInsets.only(top: 50, bottom: 0, right: 20),
                     child: Container(
-                      width: 267,
+                      width: 270,
                       height: 45,
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -297,7 +298,7 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                             padding: const EdgeInsets.only(top: 5),
                             child: RichText(
                               text: TextSpan(
-                                text: '15 Minutes gratuites puis \n',
+                                text: '15 min gratuites \n',
                                 style: GoogleFonts.poppins(
                                   fontSize: 9,
                                   fontWeight: FontWeight.w700,
@@ -305,7 +306,7 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                                 children: <TextSpan>[
                                   TextSpan(
                                     text:
-                                        '  ${list_voyante[index].price.toString()}€/minute',
+                                        'Au delà de 15 min : ${list_voyante[index].price.toString()}€/minute',
                                     style: GoogleFonts.poppins(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w300,
@@ -316,15 +317,15 @@ class _ProfilVoyantsAndTchatsState extends State<ProfilVoyantsAndTchats>
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 17),
+                            padding: const EdgeInsets.only(left: 10),
                             child: SizedBox(
-                              width: 120,
+                              width: 92,
                               height: 45,
                               child: TextButton(
                                 child: Text(
                                   'Consulter',
                                   style: GoogleFonts.poppins(
-                                    fontSize: 12,
+                                    fontSize: 11,
                                     fontWeight: FontWeight.w300,
                                     color:
                                         const Color.fromARGB(255, 68, 0, 107),

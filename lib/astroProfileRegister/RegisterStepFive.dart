@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:astro2/astroProfileRegister/registerStepFour.dart';
 import 'package:astro2/astro_Home/view/home.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RegisterStepFive extends StatefulWidget {
   const RegisterStepFive({Key? key}) : super(key: key);
-
   @override
   State<RegisterStepFive> createState() => _RegisterStepFiveState();
 }
@@ -15,7 +16,6 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
-
   @override
   void initState() {
     super.initState();
@@ -31,7 +31,6 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Container(
@@ -43,13 +42,13 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                 children: <Widget>[
                   new Image.asset('assets/images/loading.gif',
                       height: 360, width: 360),
-                  Padding(
+                  /* Padding(
                     padding: const EdgeInsets.only(top: 0, bottom: 10),
                     child: new Image.asset('assets/images/Frame.png',
                         color: Color.fromARGB(255, 68, 0, 107),
                         width: 300,
                         height: 200),
-                  ),
+                  ), */
                 ],
               ),
               Visibility(
@@ -58,7 +57,7 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                   padding: const EdgeInsets.only(
                       left: 30, right: 30, top: 0, bottom: 0),
                   child: Image.asset(
-                    "assets/images/Group44.png",
+                    "assets/images/Group.png",
                     height: 240,
                     width: 240,
                   ),
@@ -79,11 +78,12 @@ class _RegisterStepFiveState extends State<RegisterStepFive>
                       child: ElevatedButton(
                         onPressed: () {
                           // Respond to button press
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                          );
+                          Timer(
+                              Duration(seconds: 2),
+                              () => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home())));
                         },
                         style: ButtonStyle(
                           // foregroundColor:
