@@ -4,9 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:astro2/astroProfileRegister/RegisterStepFive.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterStepFour extends StatefulWidget {
   const RegisterStepFour({Key? key}) : super(key: key);
+
   @override
   State<RegisterStepFour> createState() => _RegisterStepFourState();
 }
@@ -16,6 +19,17 @@ class _RegisterStepFourState extends State<RegisterStepFour>
   bool isChecked = false;
   bool isVisible = true;
   late AnimationController _controller;
+  DateTime time = DateTime.now();
+  late String timeonly;
+  void saveData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var birthtime = DateFormat("HH:mm").format(time);
+
+    preferences.setString("heurenaiss", time.hour.toString());
+    print("votre time est ");
+    print(preferences.getString("heurenaiss"));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +45,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -64,12 +79,12 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     bottom: 0,
                     left: 0,
                     right: 0),
-                child: Image.asset(
-                  "assets/images/steps4.png",
+                /* child: Image.asset(
+                  "assets/images/step5.png",
                   scale: 0.8,
                   height: 4,
                   width: 300,
-                ),
+                ), */
               ),
             ),
             Visibility(
@@ -105,8 +120,10 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.time,
                       use24hFormat: true,
-                      onDateTimeChanged: (_) {},
-                      initialDateTime: DateTime.now(),
+                      onDateTimeChanged: (DateTime newtime) {
+                        setState(() => time = newtime);
+                      },
+                      initialDateTime: time,
                     ),
                   )),
             ),
@@ -179,6 +196,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(
                       left: 0,
@@ -190,6 +208,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () {
+                        saveData();
                         // Respond to button press
                         Navigator.push(
                           context,
@@ -212,7 +231,7 @@ class _RegisterStepFourState extends State<RegisterStepFour>
                           style: TextStyle(
                             fontFamily: 'Larken Bold',
                             color: const Color.fromARGB(255, 68, 0, 107),
-                            fontWeight: FontWeight.w400,  
+                            fontWeight: FontWeight.w400,
                           )),
                     ),
                   ),

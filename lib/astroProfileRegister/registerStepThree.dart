@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:astro2/astroProfileRegister/registerStepFour.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterStepThree extends StatefulWidget {
   const RegisterStepThree({Key? key}) : super(key: key);
@@ -16,6 +17,16 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
+
+  DateTime date = DateTime(1994, 08, 19);
+  void saveData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var datebirth = DateFormat("yyyy-MM-ddTHH:mm:ss.mmm").format(date);
+    preferences.setString('datenaiss', datebirth.toString());
+    print("date naissance est ");
+    print(preferences.getString("datenaiss"));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +42,7 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    DateTime date = DateTime(1994, 08, 19);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -66,12 +77,12 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
                     bottom: 0,
                     left: 0,
                     right: 0),
-                child: Image.asset(
+                /* child: Image.asset(
                   "assets/images/steps3.png",
                   scale: 0.8,
                   height: 4,
                   width: 300,
-                ),
+                ), */
               ),
             ),
             Visibility(
@@ -170,6 +181,7 @@ class _RegisterStepThreeState extends State<RegisterStepThree>
                     height: 62,
                     child: ElevatedButton(
                       onPressed: () {
+                        saveData();
                         // Respond to button press
                         Navigator.push(
                           context,

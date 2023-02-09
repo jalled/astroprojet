@@ -80,6 +80,7 @@ class _ProfilUserState extends State<ProfilUser> {
             height: 120,
             child: Row(
               children: [
+                /*
                 SizedBox(
                   height: 120,
                   width: 120,
@@ -91,8 +92,9 @@ class _ProfilUserState extends State<ProfilUser> {
                     foregroundColor: Colors.red,
                   ),
                 ),
+                */
                 Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Text(
@@ -201,7 +203,7 @@ class _ProfilUserState extends State<ProfilUser> {
                 ),
               ),
               child: Text(
-                'Modifier le profile',
+                '',
                 style: GoogleFonts.poppins(
                   color: Color.fromARGB(255, 68, 0, 107),
                   fontWeight: FontWeight.w500,
@@ -228,7 +230,7 @@ class _ProfilUserState extends State<ProfilUser> {
                 ),
               ),
               child: Text(
-                'Parametres',
+                '',
                 style: GoogleFonts.poppins(
                   color: Color.fromARGB(255, 68, 0, 107),
                   fontWeight: FontWeight.w500,

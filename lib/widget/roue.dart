@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,7 @@ class _ExampleAppState extends State<ExampleApp> {
   late Random random;
   late String result;
   late double degree;
-  late int key ;
+  late int key;
   late int time;
   final Map<int, String> items = {
     0: 'Gémeaux',
@@ -40,17 +41,12 @@ class _ExampleAppState extends State<ExampleApp> {
     sharedprefs = await SharedPreferences.getInstance();
     setState(() {
       _signe = sharedprefs.getString('signe')!;
-      print(_signe);
       for (var x in items.values) {
-      if (x == _signe) {
-        key =
-            items.keys.firstWhere((k) => items[k] == _signe, orElse: () => -1);
-        print("*******");
-        print(key);
-        print(_signe);
-        print("*******");
+        if (x == _signe) {
+          key = items.keys
+              .firstWhere((k) => items[k] == _signe, orElse: () => -1);
+        }
       }
-    }
     });
   }
 
@@ -58,7 +54,7 @@ class _ExampleAppState extends State<ExampleApp> {
   void initState() {
     super.initState();
     initial();
-    
+
     rotateWheel();
     random = Random();
     degree = 0;
@@ -70,16 +66,12 @@ class _ExampleAppState extends State<ExampleApp> {
       if (time > 0) {
         setState(() {
           degree = random.nextInt(40).toDouble();
-          print(degree);
         });
         time = time - 100;
       } else {
         setState(() {
           degree = key.toDouble() - 60;
         });
-        print("********");
-        print(degree);
-        print("********");
       }
     });
   }
@@ -98,33 +90,30 @@ class _ExampleAppState extends State<ExampleApp> {
                   onTap: () {},
                   child: Visibility(
                     visible: true,
-                    child: Positioned(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Transform.rotate(
-                          angle: 3.14 / 180 * degree,
-                          child: Image.asset(
-                            "assets/images/roue.png",
-                            height: 340,
-                            width: 340,
-                          ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Transform.rotate(
+                        angle: 3.14 / 180 * degree,
+                        child: Image.asset(
+                          "assets/images/roue.png",
+                          height: 340,
+                          width: 340,
                         ),
                       ),
                     ),
                   ),
                 ),
-                Positioned(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 24),
-                      child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Image.asset(
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Image.asset(
                       "assets/images/effet.png",
                       height: 700,
                       width: 520,
-                                      ),
-                                    ),
-                    ))
+                    ),
+                  ),
+                )
               ],
             ),
           ),

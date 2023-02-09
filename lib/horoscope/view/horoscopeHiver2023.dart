@@ -39,7 +39,7 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       appBar: AppBar(
           title: Text(
-            "HoroscopeHiver 2023",
+            "Horoscope Hiver 2023",
             style: TextStyle(
               fontFamily: 'Larken Bold',
               fontSize: 16,
@@ -142,7 +142,6 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
-        
         /*
         
         decoration: BoxDecoration(

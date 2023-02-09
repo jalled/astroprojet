@@ -46,7 +46,7 @@ class _SplashScreenSecondState extends State<SplashScreenSecond> {
                   left: 0,
                   right: 0,
                   child: Text(
-                    "Welcome To",
+                    "",
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 14,
@@ -91,7 +91,7 @@ class _SplashScreenSecondState extends State<SplashScreenSecond> {
                       const EdgeInsets.only(top: 460.0), //The distance you want
                   child: ElevatedButton(
                     child: Text(
-                      'Get Started',
+                      'Commencer',
                       style: TextStyle(
                         fontFamily: 'Larken Bold',
                         color: Color.fromARGB(255, 68, 0, 107),

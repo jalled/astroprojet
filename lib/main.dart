@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);  
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MediaQuery(
       data: const MediaQueryData(),
       child: ScreenUtilInit(
@@ -72,6 +72,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
 
 
 
@@ -572,6 +574,4 @@ class NavigationControls extends StatelessWidget {
     );
   }
 }
-
-
 */

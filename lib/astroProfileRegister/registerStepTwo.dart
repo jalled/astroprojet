@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:astro2/astroProfileRegister/registerStepThree.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterStepTwo extends StatefulWidget {
   const RegisterStepTwo({Key? key}) : super(key: key);
+
   @override
   State<RegisterStepTwo> createState() => _RegisterStepTwoState();
 }
@@ -13,9 +15,20 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
+
+  bool pressAttention = false;
+  bool pressAttentionb2 = false;
+  String sexe = '';
+  void saveData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    preferences.setString('sexe', sexe);
+  }
+
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(vsync: this);
   }
 
@@ -63,7 +76,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                     left: 0,
                     right: 0),
                 child: Image.asset(
-                  "assets/images/steps2.png",
+                  "assets/images/steps3.png",
                   scale: 0.8,
                   height: 4,
                   width: 300,
@@ -96,7 +109,11 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Respond to button press
+                    setState(() {
+                      pressAttention = !pressAttention;
+                      sexe = 'Homme';
+                    });
+                    saveData();
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -104,7 +121,9 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(color: Colors.transparent))),
                     backgroundColor: MaterialStateProperty.all(
-                      Color(0xff8c49a3).withOpacity(0.6),
+                      pressAttention
+                          ? Color.fromARGB(255, 135, 17, 171)
+                          : Color(0xff8c49a3).withOpacity(0.6),
                     ),
                   ),
                   child: Text(
@@ -129,7 +148,11 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                 height: 46,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Respond to button press
+                    setState(() {
+                      pressAttentionb2 = !pressAttentionb2;
+                      sexe = "femme";
+                    });
+                    saveData();
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -137,7 +160,9 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(color: Colors.transparent))),
                     backgroundColor: MaterialStateProperty.all(
-                      Color(0xff8c49a3).withOpacity(0.6),
+                      pressAttentionb2
+                          ? Color.fromARGB(255, 135, 17, 171)
+                          : Color(0xff8c49a3).withOpacity(0.6),
                     ),
                   ),
                   child: Text(
@@ -190,6 +215,7 @@ class _RegisterStepTwoState extends State<RegisterStepTwo>
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(
                       left: 0,

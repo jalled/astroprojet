@@ -66,7 +66,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
       "icon": "assets/images/ChatIcon.svg",
       "page": HomeHoroscope(),
     },
-    {"icon": "assets/images/person.svg", "page": ProfilUser()},
+    {"icon": "assets/images/person.svg", "page": ProfilUser() },
   ];
 
   void initial() async {
@@ -395,7 +395,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                 tabs: [
                   Tab(text: "Aujourd'hui"),
                   Tab(text: "Demain"),
-                  Tab(text: "Hiver2023"),
+                  Tab(text: "Hiver 2023"),
                 ],
               ),
             ),
@@ -853,7 +853,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                     children: [
                                                       Container(
                                                         child: Text(
-                                                          'Famille, Ami, Santé',
+                                                          'Famille, Amitié, Santé',
                                                           style: GoogleFonts
                                                               .poppins(
                                                             fontSize: 16,

@@ -180,7 +180,7 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                       child: Column(
                         children: <Widget>[
                           DetailsProfil(context),
-                          BookingVoyant(context),
+                          //BookingVoyant(context),
                         ],
                       ),
                     )
@@ -297,8 +297,7 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                   ),
                 ],
               ),
-            ),  
-              
+            ),
           ),
         ),
         Padding(
@@ -335,7 +334,7 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                   ),
                   TextSpan(
                     text:
-                        'Au-delà de 15 min: ${widget.valueprice.toString()}€/minute',
+                        ' Au-delà de 15 min: ${widget.valueprice.toString()}€/minute',
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w300,
@@ -397,7 +396,7 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
                       Icons.message,
                       size: 24.0,
                     ),
-                    label: Text('Tchatez'), // <-- Text
+                    label: Text('Tchattez'), // <-- Text
                   ),
                 ),
               ],
@@ -428,17 +427,17 @@ class _DetailsVoyantsState extends State<DetailsVoyants> {
 
       child: Center(
         child: BookingCalendar(
-          availableSlotText: 'omrane',
-          availableSlotColor: Color.fromARGB(255, 93, 189, 187),
-          bookedSlotColor: Color.fromARGB(255, 192, 6, 4),
-          pauseSlotColor: Color.fromARGB(255, 168, 119, 185),
-          selectedSlotColor: Color.fromARGB(255, 218, 171, 135),
+          // availableSlotText: 'omrane',
+          //availableSlotColor: Color.fromARGB(255, 93, 189, 187),
+          //  bookedSlotColor: Color.fromARGB(255, 192, 6, 4),
+          //   pauseSlotColor: Color.fromARGB(255, 168, 119, 185),
+          //  selectedSlotColor: Color.fromARGB(255, 218, 171, 135),
           bookingService: mockBookingService,
           convertStreamResultToDateTimeRanges: convertStreamResultMock,
           getBookingStream: getBookingStreamMock,
           uploadBooking: uploadBookingMock,
           pauseSlots: generatePauseSlots(),
-          pauseSlotText: 'LUNCH',
+          // pauseSlotText: 'LUNCH',
           hideBreakTime: false,
           loadingWidget: const Text('Fetching data...'),
           uploadingWidget: const CircularProgressIndicator(),

@@ -68,7 +68,7 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
     'Poissons',
   ];
 
-  String? selectedValuegender = 'male';
+  String? selectedValuegender = 'Homme';
   String? selectedValuesigneOne = 'Cancer';
   String? selectedValuesigneTwo = 'Cancer';
   final _formKey = GlobalKey<FormState>();
@@ -136,7 +136,7 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
                 height: 43,
                 color: Colors.transparent,
                 child: Text(
-                  'Selectionner votre sexe ',
+                  'Selectionnez votre sexe ',
                   style: TextStyle(
                       fontFamily: 'Larken Bold',
                       color: Colors.white,
@@ -228,7 +228,7 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
             SizedBox(height: 20),
             Center(
               child: Text(
-                'Votre signe',
+                'Le signe de votre partenaire',
                 style: TextStyle(
                   fontFamily: 'Larken Light',
                   fontSize: 15,

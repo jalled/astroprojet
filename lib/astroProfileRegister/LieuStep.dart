@@ -2,9 +2,11 @@ import 'package:astro2/astroProfileRegister/RegisterStepFive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LieuStep extends StatefulWidget {
   const LieuStep({Key? key}) : super(key: key);
+
   @override
   State<LieuStep> createState() => _LieuStepState();
 }
@@ -13,6 +15,19 @@ class _LieuStepState extends State<LieuStep>
     with SingleTickerProviderStateMixin {
   bool isVisible = true;
   late AnimationController _controller;
+
+  TextEditingController _lieufield = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String lieu = '';
+  void saveData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      lieu = _lieufield.text;
+    });
+    preferences.setString('lieu', lieu);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +43,7 @@ class _LieuStepState extends State<LieuStep>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 68, 0, 107),
       body: Center(
@@ -63,7 +79,7 @@ class _LieuStepState extends State<LieuStep>
                     right: 0,
                     left: 0),
                 child: Image.asset(
-                  "assets/images/steps5.png",
+                  "assets/images/step6.png",
                   scale: 0.8,
                   height: 4,
                   width: 300,
@@ -85,51 +101,70 @@ class _LieuStepState extends State<LieuStep>
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: deviceSize.width * 0.01,
-                  right: deviceSize.width * 0.3,
-                  top: deviceSize.height * 0.07,
-                  bottom: 0),
-              child: Text(
-                "Séléctionner votre lieu de naissance",
-                style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 13,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: deviceSize.height * 0.02,
-                  right: deviceSize.width * 0.04,
-                  top: 10,
-                  bottom: 0),
-              child: TextFormField(
-                onTap: () {
-                  setState(() {
-                    isVisible = !isVisible;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: "Sélectionner lieu",
-                  hintStyle: const TextStyle(
-                      color: Color.fromARGB(255, 237, 223, 223),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w200),
-                  constraints: BoxConstraints(
-                      maxHeight: 54, maxWidth: deviceSize.width * 1),
-                  fillColor: Color(0xff875ba0),
-                  filled: true,
-                  isDense: true,
-                  // errorText: 'Error message',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ),
-            ),
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: deviceSize.width * 0.01,
+                          right: deviceSize.width * 0.3,
+                          top: deviceSize.height * 0.07,
+                          bottom: 0),
+                      child: Text(
+                        "Séléctionner votre lieu de naissance",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: deviceSize.height * 0.02,
+                          right: deviceSize.width * 0.04,
+                          top: 10,
+                          bottom: 0),
+                      child: TextFormField(
+                        controller: _lieufield,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "    Entrez lieu de  naissance valide";
+                          } else {
+                            return null;
+                          }
+                        },
+                        onTap: () {
+                          setState(() {
+                            isVisible = !isVisible;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Sélectionner lieu",
+
+                          hintStyle: const TextStyle(
+                              color: Color.fromARGB(255, 237, 223, 223),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w200),
+                          constraints: BoxConstraints(
+                              maxHeight: 54, maxWidth: deviceSize.width * 1),
+                          fillColor: Color(0xff875ba0),
+
+                          filled: true,
+
+                          isDense: true,
+
+                          // errorText: 'Error message',
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
             Padding(
               padding: EdgeInsets.only(
                   left: deviceSize.height * 0.03,
@@ -170,6 +205,7 @@ class _LieuStepState extends State<LieuStep>
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(
                       left: deviceSize.width * 0,
@@ -181,12 +217,15 @@ class _LieuStepState extends State<LieuStep>
                     height: 62,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Respond to button press
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterStepFive()),
-                        );
+                        if (_formKey.currentState!.validate()) {
+                          saveData();
+                          // Respond to button press
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegisterStepFive()),
+                          );
+                        }
                       },
                       style: ButtonStyle(
                         backgroundColor:
