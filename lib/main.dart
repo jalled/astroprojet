@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                             value: SystemUiOverlayStyle(
                               systemNavigationBarColor: Colors.white,
                               systemNavigationBarIconBrightness:
-                                  Theme.of(context)
+                                  Theme.of(context) 
                                               .backgroundColor
                                               .computeLuminance() >
                                           0.5

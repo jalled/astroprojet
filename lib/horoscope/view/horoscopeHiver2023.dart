@@ -81,10 +81,7 @@ class _HorscopeHiverState extends State<HorscopeHiver> {
           elevation: 15.00,
           backgroundColor: const Color.fromARGB(255, 68, 0, 107)),
       body: DecoratedBox(
-        decoration: const BoxDecoration(
-            //image:
-            //DecorationImage(image: AssetImage('assets/images/Hiver.png'))
-            ),
+        decoration: const BoxDecoration(),
         child: MediaQuery.removePadding(
           removeTop: true,
           context: context,

@@ -66,7 +66,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
       "icon": "assets/images/ChatIcon.svg",
       "page": HomeHoroscope(),
     },
-    {"icon": "assets/images/person.svg", "page": ProfilUser() },
+    {"icon": "assets/images/person.svg", "page": ProfilUser()},
   ];
 
   void initial() async {
@@ -729,7 +729,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                           'Amour',
                                                           style: GoogleFonts
                                                               .poppins(
-                                                            fontSize: 16,
+                                                            fontSize: 14,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w400,
@@ -856,7 +856,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                           'Famille, Amitié, Santé',
                                                           style: GoogleFonts
                                                               .poppins(
-                                                            fontSize: 16,
+                                                            fontSize: 14,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w400,
@@ -1344,7 +1344,7 @@ class _HomeHoroscopeState extends State<HomeHoroscope>
                                                           'Argent,Carriere ',
                                                           style: GoogleFonts
                                                               .poppins(
-                                                            fontSize: 16,
+                                                            fontSize: 14,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w400,

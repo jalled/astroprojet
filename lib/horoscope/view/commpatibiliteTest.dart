@@ -34,8 +34,8 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
   }
 
   final List<String> genderItems = [
-    'Homme',
-    'Femme',
+    'male',
+    'female',
   ];
 
   final List<String> SigneOneItems = [
@@ -44,7 +44,7 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
     'Gemeaux',
     'Cancer',
     'Lion',
-    'Vierge',
+    'Vierge', 
     'Balance',
     'Scorpion',
     'Sagitaire',
@@ -68,7 +68,7 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
     'Poissons',
   ];
 
-  String? selectedValuegender = 'Homme';
+  String? selectedValuegender = 'male';
   String? selectedValuesigneOne = 'Cancer';
   String? selectedValuesigneTwo = 'Cancer';
   final _formKey = GlobalKey<FormState>();
@@ -434,7 +434,7 @@ class _CompatibiliteParSigneState extends State<CompatibiliteParSigne> {
                                     child: Text(
                                       " ${signe1.toString()} & ${signe2.toString()} ",
                                       style: TextStyle(
-                                        fontFamily: 'Larken Bold',
+                                          fontFamily: 'Larken Bold',
                                         color: Colors.white,
                                         fontSize: 20,
                                       ),

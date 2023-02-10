@@ -204,6 +204,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../astroProfileRegister/registerStepOne.dart';
 
@@ -235,28 +236,31 @@ class _ProfileRegisterState extends State<ProfileRegister> {
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            Positioned(
-              top: 60,
-              left: 17,
-              right: 0,
-              child: Text(
-                "",
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/LoginB.png"),
+                      fit: BoxFit.cover)),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 90, left: 90, top: 180, bottom: 0),
+                    child: Image.asset(
+                      "assets/images/LayerOne.png",
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 10, left: 10, top: 100, bottom: 0),
+                    child: Image.asset(
+                      "assets/images/Layer.png",
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 40),
-            Center(
-              child: Text('Se connecter',
-                  style: GoogleFonts.poppins(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
-            ),
             Positioned(
               bottom: 130,
               right: 10,
@@ -309,6 +313,7 @@ class _ProfileRegisterState extends State<ProfileRegister> {
                       // initialValue: 'Votre prénom',
                     ),
                   ),
+                  /*
                   TextButton(
                     onPressed: () async {
                       var email = _usernameController.text;
@@ -327,6 +332,50 @@ class _ProfileRegisterState extends State<ProfileRegister> {
                       }
                     },
                     child: Text("Log In"),
+                  ),
+*/
+
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    height: 50,
+                    width: 330,
+                    child: ElevatedButton(
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'Larken Bold',
+                          color: Color.fromARGB(255, 68, 0, 107),
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      onPressed: () async {
+                        var email = _usernameController.text;
+                        var password = _passwordController.text;
+                        var jwt = await attemptLogIn(email, password);
+                        if (jwt != null) {
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Home(),
+                              ));
+                        } else {
+                          displayDialog(context, "An Error Occurred",
+                              "No account was found matching that username and password");
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(255, 140, 73, 163),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(31.0),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
                   TextButton(

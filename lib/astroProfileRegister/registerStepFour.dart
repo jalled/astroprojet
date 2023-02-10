@@ -15,7 +15,7 @@ class RegisterStepFour extends StatefulWidget {
 }
 
 class _RegisterStepFourState extends State<RegisterStepFour>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin { 
   bool isChecked = false;
   bool isVisible = true;
   late AnimationController _controller;
@@ -244,3 +244,4 @@ class _RegisterStepFourState extends State<RegisterStepFour>
     );
   }
 }
+  

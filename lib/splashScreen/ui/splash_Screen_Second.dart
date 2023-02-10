@@ -123,3 +123,4 @@ class _SplashScreenSecondState extends State<SplashScreenSecond> {
     );
   }
 }
+  
