@@ -1,3 +1,4 @@
+
 /*
 import 'dart:convert';
 import 'package:astro2/astro_Home/view/home.dart';
@@ -335,10 +336,10 @@ class _ProfileRegisterState extends State<ProfileRegister> {
                   ),
 */
 
-                  SizedBox(
+                  SizedBox(   
                     height: 30,
                   ),
-                  Container(
+                  SizedBox(
                     height: 50,
                     width: 330,
                     child: ElevatedButton(
@@ -363,21 +364,22 @@ class _ProfileRegisterState extends State<ProfileRegister> {
                                 builder: (context) => Home(),
                               ));
                         } else {
+                          // ignore: use_build_context_synchronously
                           displayDialog(context, "An Error Occurred",
                               "No account was found matching that username and password");
                         }
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(255, 140, 73, 163),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 120, vertical: 20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(31.0),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextButton(
                     onPressed: () async {
                       Navigator.push(
@@ -386,7 +388,7 @@ class _ProfileRegisterState extends State<ProfileRegister> {
                             builder: (context) => const RegisterStepOne()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "Sign Up",
                       style: TextStyle(
                         fontFamily: 'Larken Light',
